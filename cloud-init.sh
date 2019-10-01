@@ -84,9 +84,11 @@ unset PGPASSWORD
 
 # Setup Configuration file
 cat <<EOF > /etc/kong/kong.conf
-# kong.conf, Zillow Group Kong configuration file
+# kong.conf, Kong configuration file
 # Written by Dennis Kelly <dennisk@zillowgroup.com>
+# Updated by Dennis Kelly <dennis.kelly@konghq.com>
 #
+# 2019-09-30: Support for 1.x releases and Dev Portal
 # 2018-03-13: Support for 0.12 and load balancing
 # 2017-06-20: Initial release
 #
