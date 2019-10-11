@@ -1,7 +1,7 @@
 # Kong Cluster Terraform Module for AWS
 
 [Kong API Gateway](https://konghq.com/) is an API gateway microservices
-management layer. Both Kong Community and Enterprise Edition are supported.
+management layer. Both Kong and Enterprise Edition are supported.
 
 By default, the following resources will be provisioned:
 
@@ -28,8 +28,8 @@ The Kong nodes are based on [Minimal Ubuntu](https://wiki.ubuntu.com/Minimal).
 Using cloud-init, the following is provisioned on top of the AMI:
 
 - A kong service user
-- Minimal set of dependancies and debugging tools
-- Kongfig for Kong configuration management
+- Minimal set of dependencies and debugging tools
+- decK for Kong declarative configuration management
 - Kong, running under runit process supervision
 - Splunk plugin for Kong
 - Log rotation of Kong log files

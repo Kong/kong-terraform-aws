@@ -12,6 +12,7 @@ data "template_file" "shell-script" {
     PARAMETER_PATH = format("/%s/%s", var.service, var.environment)
     REGION         = data.aws_region.current.name
     VPC_CIDR_BLOCK = data.aws_vpc.vpc.cidr_block
+    DECK_VERSION   = var.deck_version
   }
 }
 

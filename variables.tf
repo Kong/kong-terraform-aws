@@ -491,3 +491,11 @@ variable "redis_subnets" {
 
   default = "cache-subnets"
 }
+
+variable "deck_version" {
+  description = "Version of decK to install"
+  type        = "string"
+
+  default = "0.5.2"
+}
+
