@@ -65,7 +65,7 @@ Example main.tf:
     }
 
     module "kong" {
-      source = "github.com/kong/kong-terraform-aws?ref=v3.0"
+      source = "github.com/kong/kong-terraform-aws?ref=v3.1"
 
       vpc                   = "my-vpc"
       environment           = "dev"
