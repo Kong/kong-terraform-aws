@@ -158,6 +158,8 @@ variable "ec2_ami" {
     us-east-2 = "ami-0350efe0754b8e179"
     us-west-1 = "ami-657f9006"
     us-west-2 = "ami-59694f21"
+    eu-central-1 = "ami-19b2bcf2"
+    eu-west-1 = "ami-0395f5f72b8516ef9"
   }
 }
 
