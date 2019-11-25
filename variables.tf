@@ -410,8 +410,8 @@ variable "db_storage_size" {
   description = "Size of the database storage in Gigabytes"
   type        = string
 
-  # 20 is the minimum
-  default = 20
+  # 100 is the recommended AWS minimum
+  default = 100
 }
 
 variable "db_storage_type" {
