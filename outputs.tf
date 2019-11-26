@@ -2,7 +2,7 @@ output "rds_hostname" {
 	value = aws_rds_cluster.kong.endpoint
 }
 
-output "rds_password" {
+output "master_password" {
 	sensitive = true
 	value     = random_string.master_password.result
 }
