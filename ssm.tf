@@ -3,10 +3,10 @@ resource "aws_kms_key" "kong" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s", var.service, var.environment),
+      "Name"        = format("%s-%s", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -54,11 +54,11 @@ resource "aws_ssm_parameter" "ee-admin-token" {
 }
 
 resource "aws_ssm_parameter" "db-host" {
-  name  = format("/%s/%s/db/host", var.service, var.environment)
-  type  = "String"
+  name = format("/%s/%s/db/host", var.service, var.environment)
+  type = "String"
   value = coalesce(
-    join("", aws_db_instance.kong.*.address), 
-    join("", aws_rds_cluster.kong.*.endpoint), 
+    join("", aws_db_instance.kong.*.address),
+    join("", aws_rds_cluster.kong.*.endpoint),
     "none"
   )
 }

@@ -16,10 +16,10 @@ resource "aws_elasticache_replication_group" "kong" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s", var.service, var.environment),
+      "Name"        = format("%s-%s", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
