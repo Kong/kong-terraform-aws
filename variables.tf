@@ -154,10 +154,12 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1 = "ami-7029320f"
-    us-east-2 = "ami-0350efe0754b8e179"
-    us-west-1 = "ami-657f9006"
-    us-west-2 = "ami-59694f21"
+    us-east-1    = "ami-7029320f"
+    us-east-2    = "ami-0350efe0754b8e179"
+    us-west-1    = "ami-657f9006"
+    us-west-2    = "ami-59694f21"
+    eu-central-1 = "ami-19b2bcf2"
+    eu-west-1    = "ami-0395f5f72b8516ef9"
   }
 }
 
@@ -179,7 +181,7 @@ variable "ec2_root_volume_type" {
   description = "Type of the root volume (standard, gp2, or io)"
   type        = string
 
-  default =  "gp2"
+  default = "gp2"
 }
 
 variable "ec2_key_name" {

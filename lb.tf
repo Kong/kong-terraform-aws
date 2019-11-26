@@ -18,10 +18,10 @@ resource "aws_alb_target_group" "external" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-external", var.service, var.environment),
+      "Name"        = format("%s-%s-external", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -41,10 +41,10 @@ resource "aws_alb" "external" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-external", var.service, var.environment),
+      "Name"        = format("%s-%s-external", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -86,10 +86,10 @@ resource "aws_alb_target_group" "internal" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-internal", var.service, var.environment),
+      "Name"        = format("%s-%s-internal", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -114,10 +114,10 @@ resource "aws_alb_target_group" "admin" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-admin", var.service, var.environment),
+      "Name"        = format("%s-%s-admin", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -142,10 +142,10 @@ resource "aws_alb_target_group" "manager" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-manager", var.service, var.environment),
+      "Name"        = format("%s-%s-manager", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -170,10 +170,10 @@ resource "aws_alb_target_group" "portal-gui" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-porter-gui", var.service, var.environment),
+      "Name"        = format("%s-%s-porter-gui", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -198,10 +198,10 @@ resource "aws_alb_target_group" "portal" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-portal", var.service, var.environment),
+      "Name"        = format("%s-%s-portal", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -221,10 +221,10 @@ resource "aws_alb" "internal" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-internal", var.service, var.environment),
+      "Name"        = format("%s-%s-internal", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )

@@ -6,10 +6,10 @@ resource "aws_security_group" "postgresql" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-postgresql", var.service, var.environment),
+      "Name"        = format("%s-%s-postgresql", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -45,17 +45,17 @@ resource "aws_security_group" "redis" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-redis", var.service, var.environment),
+      "Name"        = format("%s-%s-redis", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
 }
 
 resource "aws_security_group_rule" "redis-ingress-kong" {
-  security_group_id = aws_security_group.redis.id 
+  security_group_id = aws_security_group.redis.id
 
   type      = "ingress"
   from_port = 6379
@@ -84,10 +84,10 @@ resource "aws_security_group" "kong" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s", var.service, var.environment),
+      "Name"        = format("%s-%s", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -222,10 +222,10 @@ resource "aws_security_group" "external-lb" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-external-lb", var.service, var.environment),
+      "Name"        = format("%s-%s-external-lb", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -272,10 +272,10 @@ resource "aws_security_group" "internal-lb" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s-internal-lb", var.service, var.environment),
+      "Name"        = format("%s-%s-internal-lb", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -380,7 +380,7 @@ resource "aws_security_group_rule" "internal-lb-egress-admin" {
 resource "aws_security_group_rule" "internal-lb-egress-manager" {
   count = var.enable_ee ? 1 : 0
 
-  security_group_id =  aws_security_group.internal-lb.id
+  security_group_id = aws_security_group.internal-lb.id
 
   type      = "egress"
   from_port = 8002

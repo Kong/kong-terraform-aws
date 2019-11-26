@@ -8,29 +8,29 @@ resource "aws_db_instance" "kong" {
   identifier = format("%s-%s", var.service, var.environment)
 
 
-  engine                  = "postgres"
-  engine_version          = var.db_engine_version
-  instance_class          = var.db_instance_class
-  allocated_storage       = var.db_storage_size
-  storage_type            = "gp2"
+  engine            = "postgres"
+  engine_version    = var.db_engine_version
+  instance_class    = var.db_instance_class
+  allocated_storage = var.db_storage_size
+  storage_type      = "gp2"
 
   backup_retention_period = var.db_backup_retention_period
   db_subnet_group_name    = var.db_subnets
   multi_az                = var.db_multi_az
   parameter_group_name    = format("%s-%s", var.service, var.environment)
-  
 
-  username             = "root"
-  password             = random_string.master_password.result
+
+  username = "root"
+  password = random_string.master_password.result
 
   vpc_security_group_ids = [aws_security_group.postgresql.id]
 
   tags = merge(
     {
-      "Name" = format("%s-%s", var.service, var.environment),
+      "Name"        = format("%s-%s", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )
@@ -45,10 +45,10 @@ resource "aws_db_parameter_group" "kong" {
 
   tags = merge(
     {
-      "Name" = format("%s-%s", var.service, var.environment),
+      "Name"        = format("%s-%s", var.service, var.environment),
       "Environment" = var.environment,
       "Description" = var.description,
-      "Service" = var.service,
+      "Service"     = var.service,
     },
     var.tags
   )

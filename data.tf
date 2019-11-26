@@ -13,7 +13,7 @@ data "aws_subnet_ids" "public" {
   vpc_id = data.aws_vpc.vpc.id
 
   filter {
-    name = "tag:${var.subnet_tag}"
+    name   = "tag:${var.subnet_tag}"
     values = [var.public_subnets]
   }
 }
@@ -22,7 +22,7 @@ data "aws_subnet_ids" "private" {
   vpc_id = data.aws_vpc.vpc.id
 
   filter {
-    name = "tag:${var.subnet_tag}"
+    name   = "tag:${var.subnet_tag}"
     values = [var.private_subnets]
   }
 }
