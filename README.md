@@ -844,7 +844,14 @@ internal; however, no resources associated with it are created unless enabled.
 
 ## Outputs
 
-None
+| Name | Description |
+|------|-------------|
+| admin\_token | The admin token for Kong |
+| lb\_endpoint\_external | The external load balancer endpoint |
+| lb\_endpoint\_internal | The internal load balancer endpoint |
+| master\_password | The master password for Kong |
+| rds\_endpoint | The endpoint for the Kong database |
+| rds\_password | The database password for Kong |
 
 ## Examples
 
