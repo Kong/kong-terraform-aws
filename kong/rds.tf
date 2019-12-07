@@ -7,7 +7,6 @@ resource "aws_db_instance" "kong" {
 
   identifier = format("%s-%s", var.service, var.environment)
 
-
   engine            = "postgres"
   engine_version    = var.db_engine_version
   instance_class    = var.db_instance_class
@@ -19,11 +18,13 @@ resource "aws_db_instance" "kong" {
   multi_az                = var.db_multi_az
   parameter_group_name    = format("%s-%s", var.service, var.environment)
 
-
   username = "root"
   password = random_string.master_password.result
 
   vpc_security_group_ids = [aws_security_group.postgresql.id]
+
+  # remove this flag later
+  skip_final_snapshot = true
 
   tags = merge(
     {
