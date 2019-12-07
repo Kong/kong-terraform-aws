@@ -119,7 +119,7 @@ variable "service" {
 # Additional tags
 variable "tags" {
   description = "Tags to apply to resources"
-  type        = "map"
+  type        = map
 
   default = {}
 }
@@ -160,6 +160,7 @@ variable "ec2_ami" {
     us-west-2    = "ami-59694f21"
     eu-central-1 = "ami-19b2bcf2"
     eu-west-1    = "ami-0395f5f72b8516ef9"
+    ca-central-1 = "ami-0972a0d3135cf1fc0"
   }
 }
 
@@ -238,7 +239,8 @@ variable "enable_external_lb" {
   description = "Boolean to enable/create the external load balancer, exposing Kong to the Internet"
   type        = string
 
-  default = true
+  #default = true
+  default = false
 }
 
 variable "enable_internal_lb" {
@@ -311,30 +313,30 @@ variable "idle_timeout" {
   default = 60
 }
 
-variable "ssl_cert_external" {
-  description = "SSL certificate domain name for the external Kong Proxy HTTPS listener"
-  type        = string
-}
+# variable "ssl_cert_external" {
+#   description = "SSL certificate domain name for the external Kong Proxy HTTPS listener"
+#   type        = string
+# }
 
-variable "ssl_cert_internal" {
-  description = "SSL certificate domain name for the internal Kong Proxy HTTPS listener"
-  type        = string
-}
+# variable "ssl_cert_internal" {
+#   description = "SSL certificate domain name for the internal Kong Proxy HTTPS listener"
+#   type        = string
+# }
 
-variable "ssl_cert_admin" {
-  description = "SSL certificate domain name for the Kong Admin API HTTPS listener"
-  type        = string
-}
+# variable "ssl_cert_admin" {
+#   description = "SSL certificate domain name for the Kong Admin API HTTPS listener"
+#   type        = string
+# }
 
-variable "ssl_cert_manager" {
-  description = "SSL certificate domain name for the Kong Manager HTTPS listener"
-  type        = string
-}
+# variable "ssl_cert_manager" {
+#   description = "SSL certificate domain name for the Kong Manager HTTPS listener"
+#   type        = string
+# }
 
-variable "ssl_cert_portal" {
-  description = "SSL certificate domain name for the Dev Portal listener"
-  type        = string
-}
+# variable "ssl_cert_portal" {
+#   description = "SSL certificate domain name for the Dev Portal listener"
+#   type        = string
+# }
 
 variable "ssl_policy" {
   description = "SSL Policy for HTTPS Listeners"

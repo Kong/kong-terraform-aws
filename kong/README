@@ -1,0 +1,7 @@
+set https_proxy=http://198.161.14.26:1328
+terraform init
+terraform validate
+terraform plan -out kong.plan -var-file="..\secrets.tfvars" -var-file="kong.tfvars"
+terraform apply "kong.plan"
+terraform destroy -var-file="..\secrets.tfvars" -var-file="kong.tfvars"
+terraform refresh -var-file="..\secrets.tfvars" -var-file="kong.tfvars"

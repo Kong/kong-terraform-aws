@@ -34,11 +34,11 @@ data "aws_iam_policy_document" "kong" {
 }
 
 resource "aws_iam_role" "kong" {
-  name               = format("%s-%s", var.service, var.environment)
+  name               = format("%s-%s-role", var.service, var.environment)
   assume_role_policy = data.aws_iam_policy_document.kong.json
 }
 
 resource "aws_iam_instance_profile" "kong" {
-  name = format("%s-%s", var.service, var.environment)
+  name = format("%s-%s-profile", var.service, var.environment)
   role = aws_iam_role.kong.id
 }

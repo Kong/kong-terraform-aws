@@ -25,8 +25,10 @@ resource "aws_ssm_parameter" "ee-bintray-auth" {
   key_id = aws_kms_alias.kong.target_key_arn
 
   lifecycle {
-    ignore_changes = ["value"]
+    ignore_changes = [value]
   }
+
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "ee-license" {
@@ -37,20 +39,24 @@ resource "aws_ssm_parameter" "ee-license" {
   key_id = aws_kms_alias.kong.target_key_arn
 
   lifecycle {
-    ignore_changes = ["value"]
+    ignore_changes = [value]
   }
+
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "ee-admin-token" {
   name  = format("/%s/%s/ee/admin/token", var.service, var.environment)
   type  = "SecureString"
-  value = "${random_string.admin_token.result}"
-
+  value = random_string.admin_token.result
+  
   key_id = aws_kms_alias.kong.target_key_arn
 
   lifecycle {
-    ignore_changes = ["value"]
+    ignore_changes = [value]
   }
+
+  overwrite = true
 }
 
 resource "aws_ssm_parameter" "db-host" {
@@ -77,7 +83,7 @@ resource "aws_ssm_parameter" "db-password" {
   key_id = aws_kms_alias.kong.target_key_arn
 
   lifecycle {
-    ignore_changes = ["value"]
+    ignore_changes = [value]
   }
 
   overwrite = true
@@ -91,7 +97,7 @@ resource "aws_ssm_parameter" "db-master-password" {
   key_id = aws_kms_alias.kong.target_key_arn
 
   lifecycle {
-    ignore_changes = ["value"]
+    ignore_changes = [value]
   }
 
   overwrite = true

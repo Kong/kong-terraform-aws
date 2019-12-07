@@ -50,25 +50,25 @@ resource "aws_alb" "external" {
   )
 }
 
-resource "aws_alb_listener" "external-https" {
-  count = var.enable_external_lb ? 1 : 0
+# resource "aws_alb_listener" "external-https" {
+#   count = var.enable_external_lb ? 1 : 0
 
-  load_balancer_arn = aws_alb.external[0].arn
-  port              = "443"
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.external[0].arn
+#   port              = "443"
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.external-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.external-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.external[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.external[0].arn
+#     type             = "forward"
+#   }
+# }
 
 # Internal
 resource "aws_alb_target_group" "internal" {
-  count = var.enable_internal_lb ? 1 : 0
+  #count = var.enable_internal_lb ? 1 : 0
 
   name     = format("%s-%s-internal", var.service, var.environment)
   port     = 8000
@@ -208,7 +208,7 @@ resource "aws_alb_target_group" "portal" {
 }
 
 resource "aws_alb" "internal" {
-  count = var.enable_internal_lb ? 1 : 0
+  #count = var.enable_internal_lb ? 1 : 0
 
   name     = format("%s-%s-internal", var.service, var.environment)
   internal = true
@@ -231,94 +231,94 @@ resource "aws_alb" "internal" {
 }
 
 resource "aws_alb_listener" "internal-http" {
-  count = var.enable_internal_lb ? 1 : 0
+  #count = var.enable_internal_lb ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
+  load_balancer_arn = aws_alb.internal.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.internal[0].arn
+    target_group_arn = aws_alb_target_group.internal.arn
     type             = "forward"
   }
 }
 
-resource "aws_alb_listener" "internal-https" {
-  count = var.enable_internal_lb ? 1 : 0
+# resource "aws_alb_listener" "internal-https" {
+#   count = var.enable_internal_lb ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
-  port              = 443
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.internal[0].arn
+#   port              = 443
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.internal-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.internal[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.internal[0].arn
+#     type             = "forward"
+#   }
+# }
 
-resource "aws_alb_listener" "admin" {
-  count = var.enable_ee ? 1 : 0
+# resource "aws_alb_listener" "admin" {
+#   count = var.enable_ee ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
-  port              = 8444
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.internal[0].arn
+#   port              = 8444
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.internal-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.admin[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.admin[0].arn
+#     type             = "forward"
+#   }
+# }
 
-resource "aws_alb_listener" "manager" {
-  count = var.enable_ee ? 1 : 0
+# resource "aws_alb_listener" "manager" {
+#   count = var.enable_ee ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
-  port              = 8445
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.internal[0].arn
+#   port              = 8445
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.internal-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.manager[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.manager[0].arn
+#     type             = "forward"
+#   }
+# }
 
-resource "aws_alb_listener" "portal-gui" {
-  count = var.enable_ee ? 1 : 0
+# resource "aws_alb_listener" "portal-gui" {
+#   count = var.enable_ee ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
-  port              = 8446
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.internal[0].arn
+#   port              = 8446
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.internal-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.portal-gui[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.portal-gui[0].arn
+#     type             = "forward"
+#   }
+# }
 
-resource "aws_alb_listener" "portal" {
-  count = var.enable_ee ? 1 : 0
+# resource "aws_alb_listener" "portal" {
+#   count = var.enable_ee ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal[0].arn
-  port              = 8447
-  protocol          = "HTTPS"
+#   load_balancer_arn = aws_alb.internal[0].arn
+#   port              = 8447
+#   protocol          = "HTTPS"
 
-  ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+#   ssl_policy      = var.ssl_policy
+#   certificate_arn = data.aws_acm_certificate.internal-cert.arn
 
-  default_action {
-    target_group_arn = aws_alb_target_group.portal[0].arn
-    type             = "forward"
-  }
-}
+#   default_action {
+#     target_group_arn = aws_alb_target_group.portal[0].arn
+#     type             = "forward"
+#   }
+# }
