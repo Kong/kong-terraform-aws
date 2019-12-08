@@ -10,7 +10,8 @@ resource "aws_launch_configuration" "kong" {
     aws_security_group.kong.id,
   ]
 
-  associate_public_ip_address = false
+  #associate_public_ip_address = false
+  associate_public_ip_address = true
   enable_monitoring           = true
   placement_tenancy           = "default"
   user_data                   = data.template_cloudinit_config.cloud-init.rendered
@@ -21,7 +22,8 @@ resource "aws_launch_configuration" "kong" {
   }
 
   lifecycle {
-    create_before_destroy = true
+    #create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -32,7 +34,8 @@ resource "aws_autoscaling_group" "kong" {
   launch_configuration = aws_launch_configuration.kong.name
 
   desired_capacity          = var.asg_desired_capacity
-  force_delete              = false
+  #force_delete              = false
+  force_delete              = true
   health_check_grace_period = var.asg_health_check_grace_period
   health_check_type         = "ELB"
   max_size                  = var.asg_max_size
@@ -51,7 +54,7 @@ resource "aws_autoscaling_group" "kong" {
 
   tag {
     key                 = "Name"
-    value               = format("%s-%s", var.service, var.environment)
+    value               = format("KongProxy-%s-%s", var.service, var.environment)
     propagate_at_launch = true
   }
   tag {

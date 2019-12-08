@@ -13,7 +13,7 @@ resource "aws_rds_cluster" "kong" {
   db_cluster_parameter_group_name = format("%s-%s-cluster", var.service, var.environment)
 
   vpc_security_group_ids = [aws_security_group.postgresql.id]
-
+ 
   tags = merge(
     {
       "Name"        = format("%s-%s", var.service, var.environment),

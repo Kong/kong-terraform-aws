@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "kong-terraform-backend-bucket"
-    key    = "kong-terraform-aws/vpc/terraform.tfstate"
+    key    = "kong-terraform-aws/kong/terraform.tfstate"
     region = "ca-central-1"
   }
 }

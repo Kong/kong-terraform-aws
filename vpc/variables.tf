@@ -13,8 +13,13 @@ variable "private_subnet2_cidr" {
 }
 
 variable "public_subnet_cidr" {
-  description = "CIDR for the Public Subnet"
+  description = "CIDR for the Public Subnet 1"
   default     = "10.0.2.0/26"
+}
+
+variable "public_subnet2_cidr" {
+  description = "CIDR for the Public Subnet 2"
+  default     = "10.0.3.0/26"
 }
 
 variable "db_subnet1_cidr" {

@@ -68,7 +68,7 @@ resource "aws_alb" "external" {
 
 # Internal
 resource "aws_alb_target_group" "internal" {
-  #count = var.enable_internal_lb ? 1 : 0
+  count = var.enable_internal_lb ? 1 : 0
 
   name     = format("%s-%s-internal", var.service, var.environment)
   port     = 8000
@@ -208,7 +208,7 @@ resource "aws_alb_target_group" "portal" {
 }
 
 resource "aws_alb" "internal" {
-  #count = var.enable_internal_lb ? 1 : 0
+  count = var.enable_internal_lb ? 1 : 0
 
   name     = format("%s-%s-internal", var.service, var.environment)
   internal = true
@@ -231,14 +231,14 @@ resource "aws_alb" "internal" {
 }
 
 resource "aws_alb_listener" "internal-http" {
-  #count = var.enable_internal_lb ? 1 : 0
+  count = var.enable_internal_lb ? 1 : 0
 
-  load_balancer_arn = aws_alb.internal.arn
+  load_balancer_arn = aws_alb.internal[0].arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.internal.arn
+    target_group_arn = aws_alb_target_group.internal[0].arn
     type             = "forward"
   }
 }

@@ -129,7 +129,7 @@ variable "enable_ee" {
   description = "Boolean to enable Kong Enterprise Edition settings"
   type        = string
 
-  default = false
+  default = true
 }
 
 variable "ee_bintray_auth" {
@@ -240,7 +240,7 @@ variable "enable_external_lb" {
   type        = string
 
   #default = true
-  default = false
+  default = true
 }
 
 variable "enable_internal_lb" {
@@ -372,6 +372,7 @@ variable "enable_aurora" {
   description = "Boolean to enable Aurora"
   type        = string
 
+  #default = "true"
   default = "false"
 }
 
@@ -400,7 +401,8 @@ variable "db_instance_class" {
   description = "Database instance class"
   type        = string
 
-  default = "db.t2.micro"
+  #default = "db.t2.micro"
+  default = "db.t2.small"
 }
 
 variable "db_instance_count" {

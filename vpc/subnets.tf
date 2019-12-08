@@ -35,8 +35,23 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = var.availabilityZoneA
   depends_on              = [aws_internet_gateway.kong_igw]
   tags = {
-    Name        = format("Public-Subnet-%s-%s", var.service, var.environment),
-    description = "Kong Public Subnet",
+    Name        = format("Public-Subnet-1-%s-%s", var.service, var.environment),
+    description = "Kong Public Subnet 1",
+    Environment = var.environment,
+    Service     = var.service,
+    Tier        = "public"
+  }
+}
+
+resource "aws_subnet" "public_subnet_2" {
+  vpc_id                  = aws_vpc.kong_vpc.id
+  cidr_block              = var.public_subnet2_cidr
+  map_public_ip_on_launch = var.mapPublicIP
+  availability_zone       = var.availabilityZoneB
+  depends_on              = [aws_internet_gateway.kong_igw]
+  tags = {
+    Name        = format("Public-Subnet-2-%s-%s", var.service, var.environment),
+    description = "Kong Public Subnet 2",
     Environment = var.environment,
     Service     = var.service,
     Tier        = "public"
