@@ -1,5 +1,5 @@
 module "bastion" {
-  source        = "./bastion"
+  source        = "./module-bastion"
   subnet_id     = aws_subnet.public_subnet.id
   ssh_key       = var.ec2_key_name
   allowed_hosts = ["0.0.0.0/0"]
