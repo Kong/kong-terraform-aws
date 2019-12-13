@@ -119,7 +119,7 @@ variable "service" {
 # Additional tags
 variable "tags" {
   description = "Tags to apply to resources"
-  type        = "map"
+  type        = map(string)
 
   default = {}
 }

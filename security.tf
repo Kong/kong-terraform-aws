@@ -293,7 +293,7 @@ resource "aws_security_group_rule" "internal-lb-ingress-proxy-http" {
 }
 
 resource "aws_security_group_rule" "internal-lb-ingress-proxy-https" {
-  security_group_id = "${aws_security_group.internal-lb.id}"
+  security_group_id = aws_security_group.internal-lb.id
 
   type      = "ingress"
   from_port = 443
