@@ -13,6 +13,8 @@ data "template_file" "shell-script" {
     REGION         = data.aws_region.current.name
     VPC_CIDR_BLOCK = data.aws_vpc.vpc.cidr_block
     DECK_VERSION   = var.deck_version
+    MANAGER_HOST   = local.manager_host
+    PORTAL_HOST    = local.portal_host
   }
 }
 

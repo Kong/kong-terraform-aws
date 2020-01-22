@@ -1,7 +1,3 @@
-locals {
-  enable_rds = var.enable_aurora ? false : true
-}
-
 resource "aws_db_instance" "kong" {
   count = local.enable_rds ? 1 : 0
 

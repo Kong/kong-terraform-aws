@@ -22,11 +22,11 @@ output "admin_token" {
 }
 
 output "lb_endpoint_external" {
-	value       = coalesce(aws_alb.external.*.dns_name)
+	value       = coalesce(aws_lb.external.*.dns_name)
 	description = "The external load balancer endpoint"
 }
 
 output "lb_endpoint_internal" {
-	value       = coalesce(aws_alb.internal.*.dns_name)
+	value       = coalesce(aws_lb.internal.*.dns_name)
 	description = "The internal load balancer endpoint"
 }

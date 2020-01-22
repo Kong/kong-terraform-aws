@@ -96,6 +96,20 @@ variable "portal_cidr_blocks" {
   ]
 }
 
+variable "manager_host" {
+  description = "Hostname to access Kong Manager (Enterprise Edition only)"
+  type        = string
+
+  default = "default"
+}
+
+variable "portal_host" {
+  description = "Hostname to access Portal (Enterprise Edition only)"
+  type        = string
+
+  default = "default"
+}
+
 # Required tags
 variable "description" {
   description = "Resource description tag"
@@ -498,6 +512,6 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "0.5.2"
+  default = "1.0.0"
 }
 

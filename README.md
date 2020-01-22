@@ -41,6 +41,7 @@ Prerequisites:
 - Cache subnet group (if enabling Redis)
 - An SSH Key
 - An SSL managed certificate to associate with HTTPS load balancers
+
 ## Variables
 
 <table>
@@ -634,6 +635,13 @@ n/a</td>
 <td>no</td>
 </tr>
 <tr>
+<td>manager_host</td>
+<td>Hostname to access Kong Manager (Enterprise Edition only)</td>
+<td>`string`</td>
+<td>default</td>
+<td>no</td>
+</tr>
+<tr>
 <td>portal_cidr_blocks</td>
 <td>Access to Portal (Enterprise Edition only)</td>
 <td>
@@ -647,6 +655,13 @@ n/a</td>
 ]
 ```
 </td>
+<td>no</td>
+</tr>
+<tr>
+<td>portal_host</td>
+<td>Hostname to access Portal (Enterprise Edition only)</td>
+<td>`string`</td>
+<td>default</td>
 <td>no</td>
 </tr>
 <tr>

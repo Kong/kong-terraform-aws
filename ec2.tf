@@ -40,12 +40,12 @@ resource "aws_autoscaling_group" "kong" {
 
   target_group_arns = compact(
     concat(
-      aws_alb_target_group.external.*.arn,
-      aws_alb_target_group.internal.*.arn,
-      aws_alb_target_group.admin.*.arn,
-      aws_alb_target_group.manager.*.arn,
-      aws_alb_target_group.portal-gui.*.arn,
-      aws_alb_target_group.portal.*.arn
+      aws_lb_target_group.external.*.arn,
+      aws_lb_target_group.internal.*.arn,
+      aws_lb_target_group.admin.*.arn,
+      aws_lb_target_group.manager.*.arn,
+      aws_lb_target_group.portal-gui.*.arn,
+      aws_lb_target_group.portal.*.arn
     )
   )
 

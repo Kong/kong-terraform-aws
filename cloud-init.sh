@@ -118,16 +118,21 @@ chgrp kong /etc/kong/kong.conf
 if [ "$EE_LICENSE" != "placeholder" ]; then
     echo "" >> /etc/kong/kong.conf
     cat <<EOF >> /etc/kong/kong.conf
-
 # Enterprise Edition Settings
 # SSL terminiation is performed by load balancers
 admin_gui_listen  = 0.0.0.0:8002
 portal_gui_listen = 0.0.0.0:8003
 portal_api_listen = 0.0.0.0:8004
- 
-vitals = on 
-portal = on
 
+admin_gui_url = https://${MANAGER_HOST}:8445
+
+portal              = on
+portal_gui_protocol = https
+portal_gui_host     = ${PORTAL_HOST}:8446
+portal_api_url      = http://${PORTAL_HOST}:8447
+portal_cors_origins = https://${PORTAL_HOST}:8446, https://${PORTAL_HOST}:8447
+
+vitals = on
 EOF
 
     for DIR in gui lib portal; do
@@ -277,7 +282,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
 
         # Add authentication token for /status
         curl -s -X POST http://localhost:8001/services/status/plugins \
-            -d name=request-transformer-advanced \
+            -d name=request-transformer \
             -d 'config.add.headers[]=Kong-Admin-Token:monitor' > /dev/null
     fi
 

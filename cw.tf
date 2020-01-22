@@ -1,5 +1,5 @@
-module "kong-external-alb-cw" {
-  source = "./cw/alb"
+module "kong_external_lb_cw" {
+  source = "./cw/lb"
 
   enable        = var.enable_external_lb
   load_balancer = coalesce(join("", aws_alb.external.*.arn_suffix), "none")
@@ -10,8 +10,8 @@ module "kong-external-alb-cw" {
   http_5xx_count     = var.http_5xx_count
 }
 
-module "kong-internal-alb-cw" {
-  source = "./cw/alb"
+module "kong_internal_lb_cw" {
+  source = "./cw/lb"
 
   enable        = var.enable_external_lb
   load_balancer = coalesce(join("", aws_alb.internal.*.arn_suffix), "none")
