@@ -130,7 +130,7 @@ admin_api_uri = https://${MANAGER_HOST}:8444
 admin_gui_url = https://${MANAGER_HOST}:8445
 admin_gui_auth = basic-auth
 admin_gui_session_conf = {
-    "secret":"${ADMIN_TOKEN}",
+    "secret":"$ADMIN_TOKEN",
     "cookie_secure":false
 }
 
