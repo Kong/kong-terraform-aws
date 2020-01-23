@@ -124,6 +124,7 @@ admin_gui_listen  = 0.0.0.0:8002
 portal_gui_listen = 0.0.0.0:8003
 portal_api_listen = 0.0.0.0:8004
 
+admin_api_uri = https://${MANAGER_HOST}:8444
 admin_gui_url = https://${MANAGER_HOST}:8445
 
 portal              = on
@@ -220,7 +221,7 @@ echo "Done."
 # Verify Admin API is up
 RUNNING=0
 for I in 1 2 3 4 5; do
-    curl -s -I http://localhost:8001/status | grep -q "200 OK"
+    curl -s -I -X GET http://localhost:8001/status | grep -q "200 OK"
     if [ $? = 0 ]; then
         RUNNING=1
         break
@@ -234,7 +235,7 @@ if [ $RUNNING = 0 ]; then
 fi
 
 # Enable healthchecks using a kong endpoint
-curl -s -I -X GET http://localhost:8000/status | grep -q "200 OK"
+curl -s -I http://localhost:8000/status | grep -q "200 OK"
 if [ $? != 0 ]; then
     curl -s -X POST http://localhost:8001/services \
         -d name=status \
@@ -243,7 +244,8 @@ if [ $? != 0 ]; then
         -d path=/status > /dev/null
     curl -s -X POST http://localhost:8001/services/status/routes \
         -d name=status \
-        -d methods=GET \
+        -d 'methods[]=HEAD' \
+        -d 'methods[]=GET' \
         -d 'paths[]=/status' > /dev/null
     curl -s -X POST http://localhost:8001/services/status/plugins \
         -d name=ip-restriction \
@@ -270,13 +272,13 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     curl -s -X GET -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
     if [ $? != 0 ]; then
         COMMENT="Load balancer access to /status"
-        
+
         curl -s -X POST http://localhost:8001/rbac/roles \
             -d name=monitor \
             -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
             -d endpoint=/status -d actions=read \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT" > /dev/nulls
         curl -s -X POST http://localhost:8001/rbac/users \
             -d name=monitor -d user_token=monitor \
             -d comment="$COMMENT" > /dev/null
