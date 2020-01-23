@@ -126,11 +126,6 @@ portal_api_listen = 0.0.0.0:8004
 
 admin_api_uri = https://${MANAGER_HOST}:8444
 admin_gui_url = https://${MANAGER_HOST}:8445
-admin_gui_auth = basic-auth
-admin_gui_session_conf = {
-    "secret":"${SESSION_SECRET}",
-    "cookie_secure":false
-}
 
 portal              = on
 portal_gui_protocol = https
@@ -226,7 +221,7 @@ echo "Done."
 # Verify Admin API is up
 RUNNING=0
 for I in 1 2 3 4 5 6 7 8 9; do
-    curl -s -I -X GET http://localhost:8001/status | grep -q "200 OK"
+    curl -s -I http://localhost:8001/status | grep -q "200 OK"
     if [ $? = 0 ]; then
         RUNNING=1
         break
@@ -268,7 +263,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
         curl -X POST http://localhost:8001/rbac/users \
             -d name=kong_admin -d user_token=$ADMIN_TOKEN > /dev/null
         curl -X POST http://localhost:8001/rbac/users/kong_admin/roles \
-            -d roles=super-admin > /dev/null
+            -d roles=super-admin > / dev/null
     fi
     
     # Monitor role, endpoints, user, for healthcheck
@@ -294,8 +289,15 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
             -d 'config.add.headers[]=Kong-Admin-Token:monitor' > /dev/null
     fi
 
-    sv stop /etc/sv/kong 
-    echo "enforce_rbac = on" >> /etc/kong/kong.conf
+    sv stop /etc/sv/kong
+    cat <<EOF >> /etc/kong/kong.conf
+enforce_rbac = on
+admin_gui_auth = basic-auth
+admin_gui_session_conf = {
+    "secret":"${SESSION_SECRET}",
+    "cookie_secure":false
+}
+EOF
     sudo -u kong kong prepare
     sv start /etc/sv/kong     
 fi
