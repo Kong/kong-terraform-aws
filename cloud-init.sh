@@ -234,7 +234,7 @@ if [ $RUNNING = 0 ]; then
 fi
 
 # Enable healthchecks using a kong endpoint
-curl -s -I http://localhost:8000/status | grep -q "200 OK"
+curl -s -I -X GET http://localhost:8000/status | grep -q "200 OK"
 if [ $? != 0 ]; then
     curl -s -X POST http://localhost:8001/services \
         -d name=status \
@@ -256,7 +256,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     ADMIN_TOKEN=$(aws_get_parameter "admin/token")
 
     # Admin user
-    curl -s -I http://localhost:8001/rbac/users/admin | grep -q "200 OK"
+    curl -s -X GET -I http://localhost:8001/rbac/users/admin | grep -q "200 OK"
     if [ $? != 0 ]; then
         curl -X POST http://localhost:8001/rbac/users \
             -d name=admin -d user_token=$ADMIN_TOKEN > /dev/null
@@ -266,17 +266,20 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
             -d name=monitor -d user_token=monitor > /dev/null
     fi
     
-    # Monitor permissions, role, and user for ALB healthcheck
-    curl -s -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
-    if [ $? != 0 ]; then    
-        curl -s -X POST http://localhost:8001/rbac/permissions \
-            -d name=monitor -d resources=status -d actions=read > /dev/null
+    # Monitor role, endpoints, user, for healthcheck
+    curl -s -X GET -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
+    if [ $? != 0 ]; then
+        COMMENT="Load balancer access to /status"
+        
         curl -s -X POST http://localhost:8001/rbac/roles \
-            -d name=monitor -d comment='Load balancer access to /status' > /dev/null
-        curl -s -X POST http://localhost:8001/rbac/roles/monitor/permissions \
-            -d permissions=monitor > /dev/null         
+            -d name=monitor \
+            -d comment="$COMMENT" > /dev/null
+        curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
+            -d endpoint=/status -d actions=read \
+            -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/users \
-            -d name=monitor -d user_token=monitor
+            -d name=monitor -d user_token=monitor \
+            -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/users/monitor/roles \
             -d roles=monitor > /dev/null
 
