@@ -150,8 +150,12 @@ echo "Done."
 
 # Initialize Kong
 echo "Initializing Kong"
-sudo -u kong kong migrations up
-sudo -u kong kong migrations finish
+if [ "$EE_LICENSE" != "placeholder" ]; then
+    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
+    sudo -u kong KONG_PASSWORD=$ADMIN_TOKEN kong migrations bootstrap
+else 
+    sudo -u kong kong migrations bootstrap
+fi
 echo "Done."
 
 cat <<'EOF' > /usr/local/kong/nginx.conf
