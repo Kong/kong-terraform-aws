@@ -227,7 +227,7 @@ echo "Done."
 
 # Verify Admin API is up
 RUNNING=0
-for I in 1 2 3 4 5; do
+for I in 1 2 3 4 5 6 7 8 9; do
     curl -s -I -X GET http://localhost:8001/status | grep -q "200 OK"
     if [ $? = 0 ]; then
         RUNNING=1
