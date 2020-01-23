@@ -116,6 +116,8 @@ chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
+    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
+
     echo "" >> /etc/kong/kong.conf
     cat <<EOF >> /etc/kong/kong.conf
 # Enterprise Edition Settings
@@ -126,6 +128,11 @@ portal_api_listen = 0.0.0.0:8004
 
 admin_api_uri = https://${MANAGER_HOST}:8444
 admin_gui_url = https://${MANAGER_HOST}:8445
+admin_gui_auth = basic-auth
+admin_gui_session_conf = {
+    "secret":"${ADMIN_TOKEN}",
+    "cookie_secure":false
+}
 
 portal              = on
 portal_gui_protocol = https
@@ -261,11 +268,9 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     curl -s -X GET -I http://localhost:8001/rbac/users/admin | grep -q "200 OK"
     if [ $? != 0 ]; then
         curl -X POST http://localhost:8001/rbac/users \
-            -d name=admin -d user_token=$ADMIN_TOKEN > /dev/null
-        curl -X POST http://localhost:8001/rbac/users/admin/roles \
+            -d name=kong_admin -d user_token=$ADMIN_TOKEN > /dev/null
+        curl -X POST http://localhost:8001/rbac/users/kong_admin/roles \
             -d roles=super-admin > /dev/null
-        curl -X POST http://localhost:8001/rbac/users \
-            -d name=monitor -d user_token=monitor > /dev/null
     fi
     
     # Monitor role, endpoints, user, for healthcheck
