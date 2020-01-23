@@ -150,8 +150,8 @@ echo "Done."
 
 # Initialize Kong
 echo "Initializing Kong"
-sudo -u kong kong migrations bootstrap
-sudo -u kong kong prepare
+sudo -u kong kong migrations up
+sudo -u kong kong migrations finish
 echo "Done."
 
 cat <<'EOF' > /usr/local/kong/nginx.conf
@@ -298,6 +298,6 @@ admin_gui_session_conf = {
     "cookie_secure":false
 }
 EOF
-    sudo -u kong kong prepare
+
     sv start /etc/sv/kong     
 fi
