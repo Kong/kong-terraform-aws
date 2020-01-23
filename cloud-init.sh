@@ -258,7 +258,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     ADMIN_TOKEN=$(aws_get_parameter "admin/token")
 
     # Admin user
-    curl -s -X GET -I http://localhost:8001/rbac/users/admin | grep -q "200 OK"
+    curl -s -X GET -I http://localhost:8001/rbac/users/kong_admin | grep -q "200 OK"
     if [ $? != 0 ]; then
         curl -X POST http://localhost:8001/rbac/users \
             -d name=kong_admin -d user_token=$ADMIN_TOKEN > /dev/null
@@ -276,7 +276,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
             -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
             -d endpoint=/status -d actions=read \
-            -d comment="$COMMENT" > /dev/nulls
+            -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/users \
             -d name=monitor -d user_token=monitor \
             -d comment="$COMMENT" > /dev/null
