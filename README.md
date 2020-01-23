@@ -638,6 +638,7 @@ n/a</td>
 <td>manager_host</td>
 <td>Hostname to access Kong Manager (Enterprise Edition only)</td>
 <td>
+
 `string`
 </td>
 <td>default</td>
@@ -663,6 +664,7 @@ n/a</td>
 <td>portal_host</td>
 <td>Hostname to access Portal (Enterprise Edition only)</td>
 <td>
+  
 `string`
 </td>
 <td>default</td>
