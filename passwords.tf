@@ -12,3 +12,8 @@ resource "random_string" "admin_token" {
   length  = 32
   special = false
 }
+
+resource "random_string" "session_secret" {
+  length  = 32
+  special = false
+}

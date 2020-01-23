@@ -15,6 +15,7 @@ data "template_file" "shell-script" {
     DECK_VERSION   = var.deck_version
     MANAGER_HOST   = local.manager_host
     PORTAL_HOST    = local.portal_host
+    SESSION_SECRET = random_string.session_secret.result
   }
 }
 

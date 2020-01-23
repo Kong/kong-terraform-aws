@@ -88,6 +88,7 @@ cat <<EOF > /etc/kong/kong.conf
 # Written by Dennis Kelly <dennisk@zillowgroup.com>
 # Updated by Dennis Kelly <dennis.kelly@konghq.com>
 #
+# 2020-01-23: Support for EE Kong Manager Auth
 # 2019-09-30: Support for 1.x releases and Dev Portal
 # 2018-03-13: Support for 0.12 and load balancing
 # 2017-06-20: Initial release
@@ -110,16 +111,13 @@ trusted_ips = 0.0.0.0/0
 proxy_listen = 0.0.0.0:8000
 # For /status to load balancers
 admin_listen = 0.0.0.0:8001
-
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
-
-    echo "" >> /etc/kong/kong.conf
     cat <<EOF >> /etc/kong/kong.conf
+
 # Enterprise Edition Settings
 # SSL terminiation is performed by load balancers
 admin_gui_listen  = 0.0.0.0:8002
@@ -130,7 +128,7 @@ admin_api_uri = https://${MANAGER_HOST}:8444
 admin_gui_url = https://${MANAGER_HOST}:8445
 admin_gui_auth = basic-auth
 admin_gui_session_conf = {
-    "secret":"$ADMIN_TOKEN",
+    "secret":"${SESSION_SECRET}",
     "cookie_secure":false
 }
 
