@@ -220,7 +220,6 @@ chmod 744 /etc/sv/kong/run /etc/sv/kong/log/run
 
 cd /etc/service
 ln -s /etc/sv/kong
-echo "Done."
 
 # Verify Admin API is up
 RUNNING=0
@@ -241,6 +240,7 @@ fi
 # Enable healthchecks using a kong endpoint
 curl -s -I http://localhost:8000/status | grep -q "200 OK"
 if [ $? != 0 ]; then
+    echo "Configuring healthcheck"
     curl -s -X POST http://localhost:8001/services \
         -d name=status \
         -d host=localhost \
@@ -258,17 +258,7 @@ if [ $? != 0 ]; then
 fi
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    echo "Configuring enterprise edition RBAC settings"
-    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
-
-    # Admin user
-    curl -s -X GET -I http://localhost:8001/rbac/users/kong_admin | grep -q "200 OK"
-    if [ $? != 0 ]; then
-        curl -X POST http://localhost:8001/rbac/users \
-            -d name=kong_admin -d user_token=$ADMIN_TOKEN > /dev/null
-        curl -X POST http://localhost:8001/rbac/users/kong_admin/roles \
-            -d roles=super-admin > / dev/null
-    fi
+    echo "Configuring enterprise edition settings"
     
     # Monitor role, endpoints, user, for healthcheck
     curl -s -X GET -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
