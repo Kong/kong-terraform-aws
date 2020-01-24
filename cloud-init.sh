@@ -78,8 +78,6 @@ if [ $? != 0 ]; then
 CREATE USER ${DB_USER} WITH PASSWORD '$DB_PASSWORD';
 GRANT ${DB_USER} TO root;
 CREATE DATABASE $DB_NAME OWNER = ${DB_USER};
-EOF
-fi
 unset PGPASSWORD
 
 # Setup Configuration file
@@ -151,7 +149,7 @@ echo "Done."
 # Initialize Kong
 echo "Initializing Kong"
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
+    ADMIN_TOKEN=$(aws_get_parameter "ee/admin/token")
     sudo -u kong KONG_PASSWORD=$ADMIN_TOKEN kong migrations bootstrap
 else 
     sudo -u kong kong migrations bootstrap
