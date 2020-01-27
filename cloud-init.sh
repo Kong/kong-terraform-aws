@@ -14,7 +14,6 @@ echo "Enabling auto updates"
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true \
     | debconf-set-selections
 dpkg-reconfigure -f noninteractive unattended-upgrades
-echo "Done."
 
 # Installing decK
 # https://github.com/hbagdi/deck
@@ -50,7 +49,6 @@ else
         -o ${CE_PKG}
     dpkg -i ${CE_PKG}
 fi
-echo "Done."
 
 # Setup database
 echo "Setting up Kong database"
@@ -88,6 +86,7 @@ cat <<EOF > /etc/kong/kong.conf
 # Written by Dennis Kelly <dennisk@zillowgroup.com>
 # Updated by Dennis Kelly <dennis.kelly@konghq.com>
 #
+# 2020-01-23: Support for EE Kong Manager Auth
 # 2019-09-30: Support for 1.x releases and Dev Portal
 # 2018-03-13: Support for 0.12 and load balancing
 # 2017-06-20: Initial release
@@ -110,13 +109,11 @@ trusted_ips = 0.0.0.0/0
 proxy_listen = 0.0.0.0:8000
 # For /status to load balancers
 admin_listen = 0.0.0.0:8001
-
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    echo "" >> /etc/kong/kong.conf
     cat <<EOF >> /etc/kong/kong.conf
 
 # Enterprise Edition Settings
@@ -124,10 +121,17 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
 admin_gui_listen  = 0.0.0.0:8002
 portal_gui_listen = 0.0.0.0:8003
 portal_api_listen = 0.0.0.0:8004
- 
-vitals = on 
-portal = on
 
+admin_api_uri = https://${MANAGER_HOST}:8444
+admin_gui_url = https://${MANAGER_HOST}:8445
+
+portal              = on
+portal_gui_protocol = https
+portal_gui_host     = ${PORTAL_HOST}:8446
+portal_api_url      = http://${PORTAL_HOST}:8447
+portal_cors_origins = https://${PORTAL_HOST}:8446, https://${PORTAL_HOST}:8447
+
+vitals = on
 EOF
 
     for DIR in gui lib portal; do
@@ -140,13 +144,15 @@ fi
 
 chown root:kong /usr/local/kong
 chmod 2775 /usr/local/kong
-echo "Done."
 
 # Initialize Kong
 echo "Initializing Kong"
-sudo -u kong kong migrations bootstrap
-sudo -u kong kong prepare
-echo "Done."
+if [ "$EE_LICENSE" != "placeholder" ]; then
+    ADMIN_TOKEN=$(aws_get_parameter "ee/admin/token")
+    sudo -u kong KONG_PASSWORD=$ADMIN_TOKEN kong migrations bootstrap
+else 
+    sudo -u kong kong migrations bootstrap
+fi
 
 cat <<'EOF' > /usr/local/kong/nginx.conf
 worker_processes auto;
@@ -210,11 +216,10 @@ chmod 744 /etc/sv/kong/run /etc/sv/kong/log/run
 
 cd /etc/service
 ln -s /etc/sv/kong
-echo "Done."
 
 # Verify Admin API is up
 RUNNING=0
-for I in 1 2 3 4 5; do
+for I in 1 2 3 4 5 6 7 8 9; do
     curl -s -I http://localhost:8001/status | grep -q "200 OK"
     if [ $? = 0 ]; then
         RUNNING=1
@@ -231,6 +236,7 @@ fi
 # Enable healthchecks using a kong endpoint
 curl -s -I http://localhost:8000/status | grep -q "200 OK"
 if [ $? != 0 ]; then
+    echo "Configuring healthcheck"
     curl -s -X POST http://localhost:8001/services \
         -d name=status \
         -d host=localhost \
@@ -238,7 +244,8 @@ if [ $? != 0 ]; then
         -d path=/status > /dev/null
     curl -s -X POST http://localhost:8001/services/status/routes \
         -d name=status \
-        -d methods=GET \
+        -d 'methods[]=HEAD' \
+        -d 'methods[]=GET' \
         -d 'paths[]=/status' > /dev/null
     curl -s -X POST http://localhost:8001/services/status/plugins \
         -d name=ip-restriction \
@@ -247,42 +254,37 @@ if [ $? != 0 ]; then
 fi
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    echo "Configuring enterprise edition RBAC settings"
-    ADMIN_TOKEN=$(aws_get_parameter "admin/token")
-
-    # Admin user
-    curl -s -I http://localhost:8001/rbac/users/admin | grep -q "200 OK"
-    if [ $? != 0 ]; then
-        curl -X POST http://localhost:8001/rbac/users \
-            -d name=admin -d user_token=$ADMIN_TOKEN > /dev/null
-        curl -X POST http://localhost:8001/rbac/users/admin/roles \
-            -d roles=super-admin > /dev/null
-        curl -X POST http://localhost:8001/rbac/users \
-            -d name=monitor -d user_token=monitor > /dev/null
-    fi
+    echo "Configuring enterprise edition settings"
     
-    # Monitor permissions, role, and user for ALB healthcheck
-    curl -s -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
-    if [ $? != 0 ]; then    
-        curl -s -X POST http://localhost:8001/rbac/permissions \
-            -d name=monitor -d resources=status -d actions=read > /dev/null
+    # Monitor role, endpoints, user, for healthcheck
+    curl -s -X GET -I http://localhost:8001/rbac/roles/monitor | grep -q "200 OK"
+    if [ $? != 0 ]; then
+        COMMENT="Load balancer access to /status"
+
         curl -s -X POST http://localhost:8001/rbac/roles \
-            -d name=monitor -d comment='Load balancer access to /status' > /dev/null
-        curl -s -X POST http://localhost:8001/rbac/roles/monitor/permissions \
-            -d permissions=monitor > /dev/null         
+            -d name=monitor \
+            -d comment="$COMMENT" > /dev/null
+        curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
+            -d endpoint=/status -d actions=read \
+            -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/users \
-            -d name=monitor -d user_token=monitor
+            -d name=monitor -d user_token=monitor \
+            -d comment="$COMMENT" > /dev/null
         curl -s -X POST http://localhost:8001/rbac/users/monitor/roles \
             -d roles=monitor > /dev/null
 
         # Add authentication token for /status
         curl -s -X POST http://localhost:8001/services/status/plugins \
-            -d name=request-transformer-advanced \
+            -d name=request-transformer \
             -d 'config.add.headers[]=Kong-Admin-Token:monitor' > /dev/null
     fi
 
-    sv stop /etc/sv/kong 
-    echo "enforce_rbac = on" >> /etc/kong/kong.conf
-    sudo -u kong kong prepare
+    sv stop /etc/sv/kong
+    cat <<EOF >> /etc/kong/kong.conf
+enforce_rbac = on
+admin_gui_auth = basic-auth
+admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
+EOF
+
     sv start /etc/sv/kong     
 fi
