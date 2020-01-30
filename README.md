@@ -890,7 +890,7 @@ Example main.tf:
     }
 
     module "kong" {
-      source = "github.com/kong/kong-terraform-aws?ref=v3.1"
+      source = "github.com/kong/kong-terraform-aws?ref=v3.3"
 
       vpc                   = "my-vpc"
       environment           = "dev"
