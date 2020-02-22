@@ -32,6 +32,7 @@ resource "aws_db_instance" "kong" {
     },
     var.tags
   )
+  depends_on = [aws_db_parameter_group.kong]
 }
 
 resource "aws_db_parameter_group" "kong" {
