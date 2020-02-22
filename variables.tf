@@ -515,3 +515,8 @@ variable "deck_version" {
   default = "1.0.0"
 }
 
+variable "db_final_snapshot_identifier" {
+  description = "identifier"
+  type = string
+  default = ""
+}
