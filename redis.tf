@@ -23,6 +23,7 @@ resource "aws_elasticache_replication_group" "kong" {
     },
     var.tags
   )
+  depends_on = [aws_elasticache_parameter_group.kong]
 }
 
 resource "aws_elasticache_parameter_group" "kong" {

@@ -515,3 +515,8 @@ variable "deck_version" {
   default = "1.0.0"
 }
 
+variable "db_final_snapshot_identifier" {
+  description = "The final snapshot name of the RDS instance when it gets destroyed"
+  type        = string
+  default     = ""
+}

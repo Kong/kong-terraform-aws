@@ -863,6 +863,17 @@ n/a</td>
 n/a</td>
 <td>yes</td>
 </tr>
+<tr>
+<td>db_final_snapshot_identifier</td>
+<td>If specified a final snapshot will be made of the RDS instance. If left blank, the finalsnapshot will be skipped</td>
+<td>
+
+`string`</td>
+<td>
+
+""</td>
+<td>no</td>
+</tr>
 </table>
 
 Note: Admin, manager, and portal are Enterprise features. While the SSL
