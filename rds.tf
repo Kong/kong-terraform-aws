@@ -1,5 +1,5 @@
 resource "aws_db_instance" "kong" {
-  count = local.enable_rds ? 1 : 0
+  count      = local.enable_rds ? 1 : 0
   identifier = format("%s-%s", var.service, var.environment)
 
 
@@ -20,9 +20,9 @@ resource "aws_db_instance" "kong" {
 
   vpc_security_group_ids = [aws_security_group.postgresql.id]
 
-  skip_final_snapshot = var.db_final_snapshot_identifier == "" ? true : false
+  skip_final_snapshot       = var.db_final_snapshot_identifier == "" ? true : false
   final_snapshot_identifier = var.db_final_snapshot_identifier == "" ? null : var.db_final_snapshot_identifier
-  
+
   tags = merge(
     {
       "Name"        = format("%s-%s", var.service, var.environment),
