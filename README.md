@@ -12,7 +12,7 @@ By default, the following resources will be provisioned:
 - An internal load balancer (HTTP and HTTPS)
   - HTTP:80 - Kong Proxy
   - HTTPS:443 - Kong Proxy
-  - HTTPS:8444 - Kong Admin API
+  - HTTPS:8444 - Kong Admin API (Enterprise Edition only)
   - HTTPS:8445 - Kong Manager (Enterprise Edition only)
   - HTTPS:8446 - Kong Dev Portal GUI (Enterprise Edition only)
   - HTTPS:8447 - Kong Dev Portal API (Enterprise Edition only)
