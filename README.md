@@ -215,7 +215,7 @@ Prerequisites:
 <td>Boolean to specify if RDS is multi-AZ</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `false`</td>
@@ -410,10 +410,10 @@ n/a</td>
 <td>Boolean to enable Aurora</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
-`"false"`</td>
+`false`</td>
 <td>no</td>
 </tr>
 <tr>
@@ -421,7 +421,7 @@ n/a</td>
 <td>Boolean to enable delete protection on the ALB</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `true`</td>
@@ -432,7 +432,7 @@ n/a</td>
 <td>Boolean to enable Kong Enterprise Edition settings</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `false`</td>
@@ -443,7 +443,7 @@ n/a</td>
 <td>Boolean to enable/create the external load balancer, exposing Kong to the Internet</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `true`</td>
@@ -454,10 +454,21 @@ n/a</td>
 <td>Boolean to enable/create the internal load balancer for the forward proxy</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `true`</td>
+<td>no</td>
+</tr>
+<tr>
+<td>enable_internal_admin_lb</td>
+<td>Boolean to enable/create the internal load balancer for admin port 8001. If this is enabled this will expose the internal load balancer to the vpc. NOTE: You will need to also allow 8001 in the default sg or manual enable it in the internal lb sg.</td>
+<td>
+
+`bool`</td>
+<td>
+
+`false`</td>
 <td>no</td>
 </tr>
 <tr>
@@ -465,7 +476,7 @@ n/a</td>
 <td>Boolean to enable redis AWS resource</td>
 <td>
 
-`string`</td>
+`bool`</td>
 <td>
 
 `false`</td>
