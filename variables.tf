@@ -265,8 +265,7 @@ variable "enable_internal_lb" {
 variable "enable_internal_admin_lb" {
   description = "Boolean to enable/create the internal load balancer for admin port 8001. If this is enabled this will expose the internal load balancer to the vpc. NOTE: You will need to also allow 8001 in the default sg or manual enable it in the internal lb sg. Default value is false"
   type        = bool
-  
-  default = false
+  default     = false
 }
 
 variable "deregistration_delay" {
