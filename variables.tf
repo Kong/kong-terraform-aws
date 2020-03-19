@@ -141,7 +141,7 @@ variable "tags" {
 # Enterprise Edition
 variable "enable_ee" {
   description = "Boolean to enable Kong Enterprise Edition settings"
-  type        = string
+  type        = bool
 
   default = false
 }
@@ -250,16 +250,22 @@ variable "ce_pkg" {
 # Load Balancer settings
 variable "enable_external_lb" {
   description = "Boolean to enable/create the external load balancer, exposing Kong to the Internet"
-  type        = string
+  type        = bool
 
   default = true
 }
 
 variable "enable_internal_lb" {
   description = "Boolean to enable/create the internal load balancer for the forward proxy"
-  type        = string
+  type        = bool
 
   default = true
+}
+
+variable "enable_internal_admin_lb" {
+  description = "Boolean to enable/create the internal load balancer for admin port 8001. If this is enabled this will expose the internal load balancer to the vpc. NOTE: You will need to also allow 8001 in the default sg or manual enable it in the internal lb sg. Default value is false"
+  type        = bool
+  default = false
 }
 
 variable "deregistration_delay" {
@@ -272,7 +278,7 @@ variable "deregistration_delay" {
 
 variable "enable_deletion_protection" {
   description = "Boolean to enable delete protection on the ALB"
-  type        = string
+  type        = bool
 
   # Terraform default is false
   default = true
@@ -382,9 +388,9 @@ variable "http_5xx_count" {
 # Datastore settings
 variable "enable_aurora" {
   description = "Boolean to enable Aurora"
-  type        = string
+  type        = bool
 
-  default = "false"
+  default = false
 }
 
 variable "db_engine_version" {
@@ -453,7 +459,7 @@ variable "db_subnets" {
 
 variable "db_multi_az" {
   description = "Boolean to specify if RDS is multi-AZ"
-  type        = string
+  type        = bool
 
   default = false
 }
@@ -468,7 +474,7 @@ variable "db_backup_retention_period" {
 # Redis settings (for rate_limiting only)
 variable "enable_redis" {
   description = "Boolean to enable redis AWS resource"
-  type        = string
+  type        = bool
 
   default = false
 }
