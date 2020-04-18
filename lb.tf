@@ -11,7 +11,7 @@ resource "aws_lb_target_group" "external" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
@@ -79,7 +79,7 @@ resource "aws_lb_target_group" "internal" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
@@ -107,7 +107,7 @@ resource "aws_lb_target_group" "admin" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
@@ -135,7 +135,7 @@ resource "aws_lb_target_group" "manager" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
@@ -163,7 +163,7 @@ resource "aws_lb_target_group" "portal-gui" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
@@ -191,7 +191,7 @@ resource "aws_lb_target_group" "portal" {
     healthy_threshold   = var.health_check_healthy_threshold
     interval            = var.health_check_interval
     path                = "/status"
-    port                = 8000
+    port                = 8001
     timeout             = var.health_check_timeout
     unhealthy_threshold = var.health_check_unhealthy_threshold
   }
