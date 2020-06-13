@@ -201,6 +201,8 @@ variable "ec2_root_volume_type" {
 variable "ec2_key_name" {
   description = "AWS SSH Key"
   type        = string
+
+  default = ""
 }
 
 variable "asg_max_size" {

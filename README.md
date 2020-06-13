@@ -347,8 +347,8 @@ Prerequisites:
 `string`</td>
 <td>
 
-n/a</td>
-<td>yes</td>
+`""`</td>
+<td>no</td>
 </tr>
 <tr>
 <td>ec2_root_volume_size</td>
