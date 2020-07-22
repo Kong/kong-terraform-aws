@@ -168,12 +168,12 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1    = "ami-7029320f"
-    us-east-2    = "ami-0350efe0754b8e179"
-    us-west-1    = "ami-657f9006"
-    us-west-2    = "ami-59694f21"
-    eu-central-1 = "ami-19b2bcf2"
-    eu-west-1    = "ami-0395f5f72b8516ef9"
+    us-east-1    = "ami-097f2dec72be3d174"
+    us-east-2    = "ami-0ba142a7063a73767"
+    us-west-1    = "ami-07b69f5dcdbb4abaf"
+    us-west-2    = "ami-028b81a9f357b2b96"
+    eu-central-1 = "ami-0cbcfdbe2416ea8df"
+    eu-west-1    = "ami-0eb00845cbc30b475"
   }
 }
 
