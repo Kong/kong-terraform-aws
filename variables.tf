@@ -522,3 +522,10 @@ variable "db_final_snapshot_identifier" {
   type        = string
   default     = ""
 }
+
+# Module dependencies
+variable "module_dependencies" {
+  description = "Variable to force the module to wait for other resources to finish creation"
+  type        = any
+  default     = null
+}
