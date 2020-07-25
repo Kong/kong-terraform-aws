@@ -8,6 +8,8 @@ locals {
 data "aws_vpc" "vpc" {
   state = "available"
 
+  depends_on = [ local.module_dependencies ]
+
   tags = {
     "Name" = var.vpc
   }
