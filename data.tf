@@ -1,3 +1,9 @@
+
+# Expecting the dependencies to populate first
+locals {
+  module_dependencies = var.module_dependencies
+}
+
 # AWS Data
 data "aws_vpc" "vpc" {
   state = "available"
