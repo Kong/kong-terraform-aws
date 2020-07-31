@@ -12,17 +12,12 @@ resource "aws_kms_key" "kong" {
   )
 }
 
-resource "aws_kms_alias" "kong" {
-  name          = format("alias/%s-%s", var.service, var.environment)
-  target_key_id = aws_kms_key.kong.key_id
-}
-
 resource "aws_ssm_parameter" "ee-bintray-auth" {
   name  = format("/%s/%s/ee/bintray-auth", var.service, var.environment)
   type  = "SecureString"
   value = var.ee_bintray_auth
 
-  key_id = aws_kms_alias.kong.target_key_arn
+  key_id = aws_kms_key.kong.arn
 
   lifecycle {
     ignore_changes = [value]
@@ -34,7 +29,7 @@ resource "aws_ssm_parameter" "ee-license" {
   type  = "SecureString"
   value = var.ee_license
 
-  key_id = aws_kms_alias.kong.target_key_arn
+  key_id = aws_kms_key.kong.arn
 
   lifecycle {
     ignore_changes = [value]
@@ -46,7 +41,7 @@ resource "aws_ssm_parameter" "ee-admin-token" {
   type  = "SecureString"
   value = random_string.admin_token.result
 
-  key_id = aws_kms_alias.kong.target_key_arn
+  key_id = aws_kms_key.kong.arn
 
   lifecycle {
     ignore_changes = [value]
@@ -74,7 +69,7 @@ resource "aws_ssm_parameter" "db-password" {
   type  = "SecureString"
   value = random_string.db_password.result
 
-  key_id = aws_kms_alias.kong.target_key_arn
+  key_id = aws_kms_key.kong.arn
 
   lifecycle {
     ignore_changes = [value]
@@ -88,7 +83,7 @@ resource "aws_ssm_parameter" "db-master-password" {
   type  = "SecureString"
   value = random_string.master_password.result
 
-  key_id = aws_kms_alias.kong.target_key_arn
+  key_id = aws_kms_key.kong.arn
 
   lifecycle {
     ignore_changes = [value]

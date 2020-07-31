@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "kong-ssm" {
 
   statement {
     actions   = ["kms:Decrypt"]
-    resources = [aws_kms_alias.kong.target_key_arn]
+    resources = [aws_kms_key.kong.arn]
   }
 }
 
