@@ -168,12 +168,7 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1    = "ami-097f2dec72be3d174"
-    us-east-2    = "ami-0ba142a7063a73767"
-    us-west-1    = "ami-07b69f5dcdbb4abaf"
-    us-west-2    = "ami-028b81a9f357b2b96"
-    eu-central-1 = "ami-0cbcfdbe2416ea8df"
-    eu-west-1    = "ami-0eb00845cbc30b475"
+    us-east-1    = "ami-05c457ee3f21d75f8"
   }
 }
 
@@ -239,14 +234,14 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition-1.3.0.1.bionic.all.deb "
+  default = "kong-enterprise-edition2.1.1.focal.all.deb "
 }
 
 variable "ce_pkg" {
   description = "Filename of the Community Edition package"
   type        = string
 
-  default = "kong-1.5.0.bionic.amd64.deb"
+  default = "kong-2.1.1.focal.amd64.deb"
 }
 
 # Load Balancer settings
@@ -514,7 +509,7 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "1.0.0"
+  default = "1.2.1"
 }
 
 variable "db_final_snapshot_identifier" {
