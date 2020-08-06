@@ -28,7 +28,7 @@ sudo chmod 755 /usr/local/bin/deck
 echo "Installing Kong"
 EE_LICENSE=$(aws_get_parameter ee/license)
 EE_CREDS=$(aws_get_parameter ee/bintray-auth)
-if [ "$EE_LICENSE" != "placeholder" ]; then
+if [ "$EE_LICENSE" != "" ] && [ "$EE_LICENSE" != "placeholder" ]; then
     curl -sL https://kong.bintray.com/kong-enterprise-edition-deb/dists/${EE_PKG} \
         -u $EE_CREDS \
         -o ${EE_PKG} 
