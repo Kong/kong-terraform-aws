@@ -30,3 +30,8 @@ output "lb_endpoint_internal" {
   value       = coalesce(aws_lb.internal.*.dns_name)
   description = "The internal load balancer endpoint"
 }
+
+output "autoscaling_group" {
+  value = coalesce(aws_autoscaling_group.kong.*.name)
+  description = "The autoscaling group"
+}
