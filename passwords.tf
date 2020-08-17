@@ -17,3 +17,8 @@ resource "random_string" "session_secret" {
   length  = 64
   special = false
 }
+
+resource "random_string" "admin_password" {
+  length  = 64
+  special = false
+}

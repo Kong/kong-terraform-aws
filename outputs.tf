@@ -15,6 +15,12 @@ output "master_password" {
   description = "The master password for Kong"
 }
 
+output "admin_password" {
+  sensitive   = true
+  value       = random_string.admin_password.result
+  description = "The admin password for Kong"
+}
+
 output "admin_token" {
   sensitive   = true
   value       = random_string.admin_token.result

@@ -524,3 +524,9 @@ variable "module_dependencies" {
   type        = any
   default     = null
 }
+
+variable "admin_user" {
+  description = "The user name for Kong admin user"
+  type        = string
+  default     = "kong-admin"
+}

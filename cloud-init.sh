@@ -108,7 +108,7 @@ trusted_ips = 0.0.0.0/0
 # SSL terminiation is performed by load balancers
 proxy_listen = 0.0.0.0:8000
 # For /status to load balancers
-admin_listen = 0.0.0.0:8001
+admin_listen = 127.0.0.1:8001
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
@@ -251,6 +251,41 @@ if [ $? != 0 ]; then
         -d name=ip-restriction \
         -d "config.whitelist=127.0.0.1" \
         -d "config.whitelist=${VPC_CIDR_BLOCK}" > /dev/null
+fi
+
+# Expose & secure Kong admin API
+curl -s -I http://localhost:8000/status | grep -q "200 OK"
+if [ $? != 0 ]; then
+    echo "Configuring admin interface"
+    curl -s -X POST http://localhost:8001/services \
+      --data 'name=kong-admin-api' \
+      --data 'host=127.0.0.1' \
+      --data 'port=8001'
+
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
+      --data "hosts[]=${ADMIN_CERT}" \
+      --data 'paths[]=/kong-admin-api' \
+      --data 'name=kong-admin-route'
+
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/plugins \
+      --data 'name=basic-auth' \
+      --data 'config.hide_credentials=true'
+
+    curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
+      --data 'name=acl' \
+      --data 'config.whitelist=kong-admins' \
+      --data 'config.hide_groups_header=true'
+
+    curl -s -X POST http://localhost:8001/consumers \
+      --data "username=${ADMIN_USER}" \
+      --data "custom_id=${ADMIN_USER}"
+
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/basic-auth \
+      --data "username=${ADMIN_USER}" \
+      --data "password=${ADMIN_PASS}"
+
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
+        --data "group=kong-admins"
 fi
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
