@@ -83,3 +83,14 @@ resource "aws_ssm_parameter" "db-master-password" {
   }
   overwrite = true
 }
+
+resource "aws_ssm_parameter" "admin-password" {
+  name  = format("/%s/%s/admin/password", var.service, var.environment)
+  type  = "SecureString"
+  value = random_string.admin_password.result
+  key_id = aws_kms_key.kong.arn
+  lifecycle {
+    ignore_changes = [value]
+  }
+  overwrite = true
+}
