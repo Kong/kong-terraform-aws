@@ -59,7 +59,7 @@ Prerequisites:
 | asg\_max\_size | The maximum size of the auto scale group | `string` | `3` | no |
 | asg\_min\_size | The minimum size of the auto scale group | `string` | `1` | no |
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
-| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.1.focal.amd64.deb"` | no |
+| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.2.focal.amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
 | db\_backup\_retention\_period | The number of days to retain backups | `string` | `7` | no |
 | db\_engine\_mode | Engine mode for Aurora | `string` | `"provisioned"` | no |
@@ -84,7 +84,7 @@ Prerequisites:
 | ec2\_root\_volume\_type | Type of the root volume (standard, gp2, or io) | `string` | `"gp2"` | no |
 | ee\_bintray\_auth | Bintray authentication for the Enterprise Edition download (Format: username:apikey) | `string` | `"placeholder"` | no |
 | ee\_license | Enterprise Edition license key (JSON format) | `string` | `"placeholder"` | no |
-| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.1.1.focal.all.deb "` | no |
+| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.1.2.focal.all.deb"` | no |
 | enable\_aurora | Boolean to enable Aurora | `string` | `"false"` | no |
 | enable\_deletion\_protection | Boolean to enable delete protection on the ALB | `string` | `true` | no |
 | enable\_ee | Boolean to enable Kong Enterprise Edition settings | `string` | `false` | no |

@@ -253,7 +253,7 @@ if [ $? = 0 ]; then
 
     curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
       -d 'name=acl' \
-      -d 'config.whitelist=kong-admins' \
+      -d 'config.allow=kong-admins' \
       -d 'config.hide_groups_header=true'
 
     curl -s -X POST http://localhost:8001/consumers \
@@ -276,16 +276,16 @@ if [ $? != 0 ]; then
         -d name=status \
         -d host=localhost \
         -d port=8001 \
-        -d path=/status > /dev/null
+        -d path=/status
     curl -s -X POST http://localhost:8001/services/status/routes \
         -d name=status \
         -d 'methods[]=HEAD' \
         -d 'methods[]=GET' \
-        -d 'paths[]=/status' > /dev/null
+        -d 'paths[]=/status'
     curl -s -X POST http://localhost:8001/services/status/plugins \
         -d name=ip-restriction \
-        -d "config.whitelist=127.0.0.1" \
-        -d "config.whitelist=${VPC_CIDR_BLOCK}" > /dev/null
+        -d "config.allow=127.0.0.1" \
+        -d "config.allow=${VPC_CIDR_BLOCK}"
 fi
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
@@ -298,20 +298,20 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
 
         curl -s -X POST http://localhost:8001/rbac/roles \
             -d name=monitor \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
             -d endpoint=/status -d actions=read \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/users \
             -d name=monitor -d user_token=monitor \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/users/monitor/roles \
-            -d roles=monitor > /dev/null
+            -d roles=monitor
 
         # Add authentication token for /status
         curl -s -X POST http://localhost:8001/services/status/plugins \
             -d name=request-transformer \
-            -d 'config.add.headers[]=Kong-Admin-Token:monitor' > /dev/null
+            -d 'config.add.headers[]=Kong-Admin-Token:monitor'
     fi
 
     sv stop /etc/sv/kong
