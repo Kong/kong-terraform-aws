@@ -234,36 +234,39 @@ if [ $RUNNING = 0 ]; then
 fi
 
 # Expose & secure Kong admin API
-echo "Configuring admin interface"
-curl -s -X POST http://localhost:8001/services \
-  --data 'name=kong-admin-api' \
-  --data 'host=127.0.0.1' \
-  --data 'port=8001'
+curl -s -I http://localhost:8001/services/kong-admin-api | grep -q "Not found"
+if [ $? != 0 ]; then
+    echo "Configuring admin interface"
+    curl -s -X POST http://localhost:8001/services \
+      --data 'name=kong-admin-api' \
+      --data 'host=127.0.0.1' \
+      --data 'port=8001'
 
-curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
-  --data "hosts[]=${ADMIN_CERT}" \
-  --data 'paths[]=/kong-admin-api' \
-  --data 'name=kong-admin-route'
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
+      --data "hosts[]=${ADMIN_CERT}" \
+      --data 'paths[]=/kong-admin-api' \
+      --data 'name=kong-admin-route'
 
-curl -s -X POST http://localhost:8001/services/kong-admin-api/plugins \
-  --data 'name=basic-auth' \
-  --data 'config.hide_credentials=true'
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/plugins \
+      --data 'name=basic-auth' \
+      --data 'config.hide_credentials=true'
 
-curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
-  --data 'name=acl' \
-  --data 'config.whitelist=kong-admins' \
-  --data 'config.hide_groups_header=true'
+    curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
+      --data 'name=acl' \
+      --data 'config.whitelist=kong-admins' \
+      --data 'config.hide_groups_header=true'
 
-curl -s -X POST http://localhost:8001/consumers \
-  --data "username=${ADMIN_USER}" \
-  --data "custom_id=${ADMIN_USER}"
+    curl -s -X POST http://localhost:8001/consumers \
+      --data "username=${ADMIN_USER}" \
+      --data "custom_id=${ADMIN_USER}"
 
-curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/basic-auth \
-  --data "username=${ADMIN_USER}" \
-  --data "password=${ADMIN_PASS}"
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/basic-auth \
+      --data "username=${ADMIN_USER}" \
+      --data "password=${ADMIN_PASS}"
 
-curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
-    --data "group=kong-admins"
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
+      --data "group=kong-admins"
+fi
 
 # Enable healthchecks using a kong endpoint
 curl -s -I http://localhost:8000/status | grep -q "200 OK"
