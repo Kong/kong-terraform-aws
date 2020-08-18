@@ -235,7 +235,7 @@ fi
 
 # Expose & secure Kong admin API
 curl -s -I http://localhost:8001/services/kong-admin-api | grep -q "Not found"
-if [ $? != 0 ]; then
+if [ $? = 0 ]; then
     echo "Configuring admin interface"
     curl -s -X POST http://localhost:8001/services \
       --data 'name=kong-admin-api' \
