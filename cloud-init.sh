@@ -234,6 +234,7 @@ if [ $RUNNING = 0 ]; then
 fi
 
 # Expose & secure Kong admin API
+# Configure Kong
 curl http://localhost:8001/services/kong-admin-api 2>&1 | grep -q "Not found"
 if [ $? = 0 ]; then
     echo "Configuring admin interface"
@@ -266,6 +267,10 @@ if [ $? = 0 ]; then
 
     curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
       -d "group=kong-admins"
+
+    echo "Configure Kong Consumers"
+    echo $KONG_CONFIG
+    eval $KONG_CONFIG
 fi
 
 # Enable healthchecks using a kong endpoint
@@ -322,9 +327,5 @@ admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
 EOF
 
     sv start /etc/sv/kong
-
-    echo "Configuring Kong"
-    echo $KONG_CONFIG
-    eval $KONG_CONFIG
 
 fi
