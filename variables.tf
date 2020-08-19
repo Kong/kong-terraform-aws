@@ -530,3 +530,9 @@ variable "admin_user" {
   type        = string
   default     = "kong-admin"
 }
+
+variable "kong_config" {
+  description = "Kong configuration script as a string"
+  type        = string
+  default     = ""
+}

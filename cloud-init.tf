@@ -19,6 +19,7 @@ data "template_file" "shell-script" {
     ADMIN_CERT     = var.ssl_cert_admin
     ADMIN_USER     = var.admin_user
     ADMIN_PASS     = random_string.admin_password.result
+    KONG_CONFIG    = var.kong_config
   }
 }
 

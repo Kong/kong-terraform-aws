@@ -321,5 +321,8 @@ admin_gui_auth = basic-auth
 admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
 EOF
 
-    sv start /etc/sv/kong     
+    sv start /etc/sv/kong
+
+    eval $KONG_CONFIG
+
 fi
