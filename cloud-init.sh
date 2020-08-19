@@ -323,6 +323,7 @@ EOF
 
     sv start /etc/sv/kong
 
+    echo "Configuring Kong"
     echo $KONG_CONFIG
     eval $KONG_CONFIG
 
