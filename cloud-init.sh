@@ -233,6 +233,41 @@ if [ $RUNNING = 0 ]; then
     exit 1
 fi
 
+# Expose & secure Kong admin API
+curl http://localhost:8001/services/kong-admin-api 2>&1 | grep -q "Not found"
+if [ $? = 0 ]; then
+    echo "Configuring admin interface"
+    curl -s -X POST http://localhost:8001/services \
+      -d 'name=kong-admin-api' \
+      -d 'host=127.0.0.1' \
+      -d 'port=8001'
+
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
+      -d "hosts[]=${ADMIN_CERT}" \
+      -d 'paths[]=/kong-admin-api' \
+      -d 'name=kong-admin-route'
+
+    curl -s -X POST http://localhost:8001/services/kong-admin-api/plugins \
+      -d 'name=basic-auth' \
+      -d 'config.hide_credentials=true'
+
+    curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
+      -d 'name=acl' \
+      -d 'config.allow=kong-admins' \
+      -d 'config.hide_groups_header=true'
+
+    curl -s -X POST http://localhost:8001/consumers \
+      -d "username=${ADMIN_USER}" \
+      -d "custom_id=${ADMIN_USER}"
+
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/basic-auth \
+      -d "username=${ADMIN_USER}" \
+      -d "password=${ADMIN_PASS}"
+
+    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
+      -d "group=kong-admins"
+fi
+
 # Enable healthchecks using a kong endpoint
 curl -s -I http://localhost:8000/status | grep -q "200 OK"
 if [ $? != 0 ]; then
@@ -241,51 +276,16 @@ if [ $? != 0 ]; then
         -d name=status \
         -d host=localhost \
         -d port=8001 \
-        -d path=/status > /dev/null
+        -d path=/status
     curl -s -X POST http://localhost:8001/services/status/routes \
         -d name=status \
         -d 'methods[]=HEAD' \
         -d 'methods[]=GET' \
-        -d 'paths[]=/status' > /dev/null
+        -d 'paths[]=/status'
     curl -s -X POST http://localhost:8001/services/status/plugins \
         -d name=ip-restriction \
-        -d "config.whitelist=127.0.0.1" \
-        -d "config.whitelist=${VPC_CIDR_BLOCK}" > /dev/null
-fi
-
-# Expose & secure Kong admin API
-curl -s -I http://localhost:8000/status | grep -q "200 OK"
-if [ $? != 0 ]; then
-    echo "Configuring admin interface"
-    curl -s -X POST http://localhost:8001/services \
-      --data 'name=kong-admin-api' \
-      --data 'host=127.0.0.1' \
-      --data 'port=8001'
-
-    curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
-      --data "hosts[]=${ADMIN_CERT}" \
-      --data 'paths[]=/kong-admin-api' \
-      --data 'name=kong-admin-route'
-
-    curl -s -X POST http://localhost:8001/services/kong-admin-api/plugins \
-      --data 'name=basic-auth' \
-      --data 'config.hide_credentials=true'
-
-    curl -s -X POST http://localhost:8001/routes/kong-admin-route/plugins \
-      --data 'name=acl' \
-      --data 'config.whitelist=kong-admins' \
-      --data 'config.hide_groups_header=true'
-
-    curl -s -X POST http://localhost:8001/consumers \
-      --data "username=${ADMIN_USER}" \
-      --data "custom_id=${ADMIN_USER}"
-
-    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/basic-auth \
-      --data "username=${ADMIN_USER}" \
-      --data "password=${ADMIN_PASS}"
-
-    curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
-        --data "group=kong-admins"
+        -d "config.allow=127.0.0.1" \
+        -d "config.allow=${VPC_CIDR_BLOCK}"
 fi
 
 if [ "$EE_LICENSE" != "placeholder" ]; then
@@ -298,20 +298,20 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
 
         curl -s -X POST http://localhost:8001/rbac/roles \
             -d name=monitor \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/roles/monitor/endpoints \
             -d endpoint=/status -d actions=read \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/users \
             -d name=monitor -d user_token=monitor \
-            -d comment="$COMMENT" > /dev/null
+            -d comment="$COMMENT"
         curl -s -X POST http://localhost:8001/rbac/users/monitor/roles \
-            -d roles=monitor > /dev/null
+            -d roles=monitor
 
         # Add authentication token for /status
         curl -s -X POST http://localhost:8001/services/status/plugins \
             -d name=request-transformer \
-            -d 'config.add.headers[]=Kong-Admin-Token:monitor' > /dev/null
+            -d 'config.add.headers[]=Kong-Admin-Token:monitor'
     fi
 
     sv stop /etc/sv/kong
