@@ -12,9 +12,9 @@ resource "aws_kms_key" "kong" {
 }
 
 resource "aws_ssm_parameter" "ee-bintray-auth" {
-  name  = format("/%s/%s/ee/bintray-auth", var.service, var.environment)
-  type  = "SecureString"
-  value = var.ee_bintray_auth
+  name   = format("/%s/%s/ee/bintray-auth", var.service, var.environment)
+  type   = "SecureString"
+  value  = var.ee_bintray_auth
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]
@@ -23,9 +23,9 @@ resource "aws_ssm_parameter" "ee-bintray-auth" {
 }
 
 resource "aws_ssm_parameter" "ee-license" {
-  name  = format("/%s/%s/ee/license", var.service, var.environment)
-  type  = "SecureString"
-  value = var.ee_license
+  name   = format("/%s/%s/ee/license", var.service, var.environment)
+  type   = "SecureString"
+  value  = var.ee_license
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]
@@ -34,9 +34,9 @@ resource "aws_ssm_parameter" "ee-license" {
 }
 
 resource "aws_ssm_parameter" "ee-admin-token" {
-  name  = format("/%s/%s/ee/admin/token", var.service, var.environment)
-  type  = "SecureString"
-  value = random_string.admin_token.result
+  name   = format("/%s/%s/ee/admin/token", var.service, var.environment)
+  type   = "SecureString"
+  value  = random_string.admin_token.result
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]
@@ -56,16 +56,16 @@ resource "aws_ssm_parameter" "db-host" {
 }
 
 resource "aws_ssm_parameter" "db-name" {
-  name  = format("/%s/%s/db/name", var.service, var.environment)
-  type  = "String"
-  value = replace(format("%s_%s", var.service, var.environment), "-", "_")
+  name      = format("/%s/%s/db/name", var.service, var.environment)
+  type      = "String"
+  value     = replace(format("%s_%s", var.service, var.environment), "-", "_")
   overwrite = true
 }
 
 resource "aws_ssm_parameter" "db-password" {
-  name  = format("/%s/%s/db/password", var.service, var.environment)
-  type  = "SecureString"
-  value = random_string.db_password.result
+  name   = format("/%s/%s/db/password", var.service, var.environment)
+  type   = "SecureString"
+  value  = random_string.db_password.result
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]
@@ -74,9 +74,9 @@ resource "aws_ssm_parameter" "db-password" {
 }
 
 resource "aws_ssm_parameter" "db-master-password" {
-  name  = format("/%s/%s/db/password/master", var.service, var.environment)
-  type  = "SecureString"
-  value = random_string.master_password.result
+  name   = format("/%s/%s/db/password/master", var.service, var.environment)
+  type   = "SecureString"
+  value  = random_string.master_password.result
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]
@@ -85,9 +85,9 @@ resource "aws_ssm_parameter" "db-master-password" {
 }
 
 resource "aws_ssm_parameter" "admin-password" {
-  name  = format("/%s/%s/admin/password", var.service, var.environment)
-  type  = "SecureString"
-  value = random_string.admin_password.result
+  name   = format("/%s/%s/admin/password", var.service, var.environment)
+  type   = "SecureString"
+  value  = random_string.admin_password.result
   key_id = aws_kms_key.kong.arn
   lifecycle {
     ignore_changes = [value]

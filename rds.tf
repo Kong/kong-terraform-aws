@@ -2,7 +2,6 @@ resource "aws_db_instance" "kong" {
   count      = local.enable_rds ? 1 : 0
   identifier = format("%s-%s", var.service, var.environment)
 
-
   engine            = "postgres"
   engine_version    = var.db_engine_version
   instance_class    = var.db_instance_class
@@ -13,7 +12,6 @@ resource "aws_db_instance" "kong" {
   db_subnet_group_name    = var.db_subnets
   multi_az                = var.db_multi_az
   parameter_group_name    = format("%s-%s", var.service, var.environment)
-
 
   username = "root"
   password = random_string.master_password.result

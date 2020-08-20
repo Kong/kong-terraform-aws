@@ -38,6 +38,6 @@ output "lb_endpoint_internal" {
 }
 
 output "autoscaling_group" {
-  value = coalesce(aws_autoscaling_group.kong.*.name)
+  value       = coalesce(aws_autoscaling_group.kong.*.name)
   description = "The autoscaling group"
 }
