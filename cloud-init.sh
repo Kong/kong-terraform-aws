@@ -267,10 +267,6 @@ if [ $? = 0 ]; then
 
     curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
       -d "group=kong-admins"
-
-    echo "Configure Kong Consumers"
-    echo $KONG_CONFIG
-    eval $KONG_CONFIG
 fi
 
 # Enable healthchecks using a kong endpoint
