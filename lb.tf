@@ -66,6 +66,24 @@ resource "aws_lb_listener" "external-https" {
   }
 }
 
+resource "aws_lb_listener" "external-http" {
+  count = var.enable_external_lb ? 1 : 0
+
+  load_balancer_arn = aws_lb.external[0].arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
 # Internal
 resource "aws_lb_target_group" "internal" {
   count = var.enable_internal_lb ? 1 : 0
