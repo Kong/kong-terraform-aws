@@ -48,7 +48,20 @@ Prerequisites:
 - An SSH Key
 - An SSL managed certificate to associate with HTTPS load balancers
 
-## Variables
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| random | n/a |
+| template | n/a |
+
+## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -126,10 +139,6 @@ Prerequisites:
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |
 | vpc | VPC Name for the AWS account and region specified | `string` | n/a | yes |
 
-Note: Admin, manager, and portal are Enterprise features. While the SSL
-certificate needs to be defined, it can be the same as the external and/or
-internal; however, no resources associated with it are created unless enabled.
-
 ## Outputs
 
 | Name | Description |
@@ -142,6 +151,8 @@ internal; however, no resources associated with it are created unless enabled.
 | master\_password | The master password for Kong |
 | rds\_endpoint | The endpoint for the Kong database |
 | rds\_password | The database password for Kong |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Examples
 
