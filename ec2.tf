@@ -6,7 +6,7 @@ resource "aws_launch_configuration" "kong" {
   key_name             = var.ec2_key_name
 
   security_groups = [
-    data.aws_security_group.default.id,
+    var.default_security_group_id,
     aws_security_group.kong.id,
   ]
 
@@ -27,7 +27,7 @@ resource "aws_launch_configuration" "kong" {
 
 resource "aws_autoscaling_group" "kong" {
   name                = format("%s-%s", var.service, var.environment)
-  vpc_zone_identifier = data.aws_subnet_ids.private.ids
+  vpc_zone_identifier = var.aws_private_subnet_ids
 
   launch_configuration = aws_launch_configuration.kong.name
 

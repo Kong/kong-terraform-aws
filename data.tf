@@ -1,47 +1,4 @@
-
-# Expecting the dependencies to populate first
-locals {
-  module_dependencies = var.module_dependencies
-}
-
-# AWS Data
-data "aws_vpc" "vpc" {
-  state = "available"
-
-  depends_on = [ local.module_dependencies ]
-
-  tags = {
-    "Name" = var.vpc
-  }
-}
-
 data "aws_region" "current" {}
-
-data "aws_subnet_ids" "public" {
-  vpc_id = data.aws_vpc.vpc.id
-
-  filter {
-    name   = "tag:${var.subnet_tag}"
-    values = [var.public_subnets]
-  }
-}
-
-data "aws_subnet_ids" "private" {
-  vpc_id = data.aws_vpc.vpc.id
-
-  filter {
-    name   = "tag:${var.subnet_tag}"
-    values = [var.private_subnets]
-  }
-}
-
-data "aws_security_group" "default" {
-  vpc_id = data.aws_vpc.vpc.id
-
-  tags = {
-    "Name" = var.default_security_group
-  }
-}
 
 data "aws_acm_certificate" "external-cert" {
   domain = var.ssl_cert_external

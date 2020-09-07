@@ -1,8 +1,29 @@
 # Network settings
-variable "vpc" {
+variable "vpc_name" {
   description = "VPC Name for the AWS account and region specified"
   type        = string
 }
+
+variable "vpc_id" {
+  description = "VPC Id for the AWS account and region specified"
+  type        = string
+}
+
+variable "vpc_cidr_block" {
+  description = "VPC cidr block for the AWS account and region specified"
+  type        = string
+}
+
+variable "aws_private_subnet_ids" {
+  description = "Private subnet Ids"
+  type = list(string)
+}
+
+variable "aws_public_subnet_ids" {
+  description = "Private subnet Ids"
+  type = list(string)
+}
+
 
 variable "subnet_tag" {
   description = "Tag used on subnets to define Tier"
@@ -25,12 +46,20 @@ variable "public_subnets" {
   default = "public"
 }
 
-variable "default_security_group" {
+variable "default_security_group_name" {
   description = "Name of the default VPC security group for EC2 access"
   type        = string
 
   default = "default"
 }
+
+variable "default_security_group_id" {
+  description = "Id of the default VPC security group for EC2 access"
+  type        = string
+
+  default = "default"
+}
+
 
 # Access control
 variable "bastion_cidr_blocks" {

@@ -2,7 +2,7 @@
 resource "aws_security_group" "postgresql" {
   description = "Kong RDS instance"
   name        = format("%s-%s-postgresql", var.service, var.environment)
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = merge(
     {
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "postgresql-ingress-bastion" {
 resource "aws_security_group" "redis" {
   description = "Kong redis cluster"
   name        = format("%s-%s-redis", var.service, var.environment)
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = merge(
     {
@@ -80,7 +80,7 @@ resource "aws_security_group_rule" "redis-ingress-bastion" {
 resource "aws_security_group" "kong" {
   description = "Kong EC2 instances"
   name        = format("%s-%s", var.service, var.environment)
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = merge(
     {
@@ -218,7 +218,7 @@ resource "aws_security_group_rule" "kong-egress-https" {
 resource "aws_security_group" "external-lb" {
   description = "Kong External Load Balancer"
   name        = format("%s-%s-external-lb", var.service, var.environment)
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = merge(
     {
@@ -268,7 +268,7 @@ resource "aws_security_group_rule" "external-lb-egress-admin" {
 resource "aws_security_group" "internal-lb" {
   description = "Kong Internal Load Balancer"
   name        = format("%s-%s-internal-lb", var.service, var.environment)
-  vpc_id      = data.aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   tags = merge(
     {

@@ -5,7 +5,7 @@ resource "aws_lb_target_group" "external" {
   name     = format("%s-%s-external", var.service, var.environment)
   port     = 8000
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -32,7 +32,7 @@ resource "aws_lb" "external" {
 
   name     = format("%s-%s-external", var.service, var.environment)
   internal = false
-  subnets  = data.aws_subnet_ids.public.ids
+  subnets  = var.aws_public_subnet_ids
 
   security_groups = [aws_security_group.external-lb.id]
 
@@ -73,7 +73,7 @@ resource "aws_lb_target_group" "internal" {
   name     = format("%s-%s-internal", var.service, var.environment)
   port     = 8000
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -101,7 +101,7 @@ resource "aws_lb_target_group" "admin" {
   name     = format("%s-%s-admin", var.service, var.environment)
   port     = 8001
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -129,7 +129,7 @@ resource "aws_lb_target_group" "manager" {
   name     = format("%s-%s-manager", var.service, var.environment)
   port     = 8002
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -157,7 +157,7 @@ resource "aws_lb_target_group" "portal-gui" {
   name     = format("%s-%s-porter-gui", var.service, var.environment)
   port     = 8003
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -185,7 +185,7 @@ resource "aws_lb_target_group" "portal" {
   name     = format("%s-%s-portal", var.service, var.environment)
   port     = 8004
   protocol = "HTTP"
-  vpc_id   = data.aws_vpc.vpc.id
+  vpc_id   = var.vpc_id
 
   health_check {
     healthy_threshold   = var.health_check_healthy_threshold
@@ -212,7 +212,7 @@ resource "aws_lb" "internal" {
 
   name     = format("%s-%s-internal", var.service, var.environment)
   internal = true
-  subnets  = data.aws_subnet_ids.private.ids
+  subnets  = var.aws_private_subnet_ids
 
   security_groups = [aws_security_group.internal-lb.id]
 
