@@ -16,12 +16,12 @@ variable "vpc_cidr_block" {
 
 variable "aws_private_subnet_ids" {
   description = "Private subnet Ids"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "aws_public_subnet_ids" {
   description = "Private subnet Ids"
-  type = list(string)
+  type        = list(string)
 }
 
 
@@ -263,14 +263,14 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition2.1.2.focal.all.deb"
+  default = "kong-enterprise-edition2.1.4.focal.all.deb"
 }
 
 variable "ce_pkg" {
   description = "Filename of the Community Edition package"
   type        = string
 
-  default = "kong-2.1.2.focal.amd64.deb"
+  default = "kong-2.1.4.focal.amd64.deb"
 }
 
 # Load Balancer settings

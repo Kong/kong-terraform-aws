@@ -71,8 +71,10 @@ No requirements.
 | asg\_health\_check\_grace\_period | Time in seconds after instance comes into service before checking health | `string` | `300` | no |
 | asg\_max\_size | The maximum size of the auto scale group | `string` | `3` | no |
 | asg\_min\_size | The minimum size of the auto scale group | `string` | `1` | no |
+| aws\_private\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
+| aws\_public\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
-| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.2.focal.amd64.deb"` | no |
+| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.4.focal.amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
 | db\_backup\_retention\_period | The number of days to retain backups | `string` | `7` | no |
 | db\_engine\_mode | Engine mode for Aurora | `string` | `"provisioned"` | no |
@@ -87,7 +89,8 @@ No requirements.
 | db\_subnets | Database instance subnet group name | `string` | `"db-subnets"` | no |
 | db\_username | Database master username | `string` | `"root"` | no |
 | deck\_version | Version of decK to install | `string` | `"1.2.1"` | no |
-| default\_security\_group | Name of the default VPC security group for EC2 access | `string` | `"default"` | no |
+| default\_security\_group\_id | Id of the default VPC security group for EC2 access | `string` | `"default"` | no |
+| default\_security\_group\_name | Name of the default VPC security group for EC2 access | `string` | `"default"` | no |
 | deregistration\_delay | Seconds to wait before changing the state of a deregistering target from draining to unused | `string` | `300` | no |
 | description | Resource description tag | `string` | `"Kong API Gateway"` | no |
 | ec2\_ami | Map of Ubuntu Minimal AMIs by region | `map(string)` | <pre>{<br>  "us-east-1": "ami-05c457ee3f21d75f8"<br>}</pre> | no |
@@ -97,7 +100,7 @@ No requirements.
 | ec2\_root\_volume\_type | Type of the root volume (standard, gp2, or io) | `string` | `"gp2"` | no |
 | ee\_bintray\_auth | Bintray authentication for the Enterprise Edition download (Format: username:apikey) | `string` | `"placeholder"` | no |
 | ee\_license | Enterprise Edition license key (JSON format) | `string` | `"placeholder"` | no |
-| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.1.2.focal.all.deb"` | no |
+| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.1.4.focal.all.deb"` | no |
 | enable\_aurora | Boolean to enable Aurora | `string` | `"false"` | no |
 | enable\_deletion\_protection | Boolean to enable delete protection on the ALB | `string` | `true` | no |
 | enable\_ee | Boolean to enable Kong Enterprise Edition settings | `string` | `false` | no |
@@ -137,7 +140,9 @@ No requirements.
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |
-| vpc | VPC Name for the AWS account and region specified | `string` | n/a | yes |
+| vpc\_cidr\_block | VPC cidr block for the AWS account and region specified | `string` | n/a | yes |
+| vpc\_id | VPC Id for the AWS account and region specified | `string` | n/a | yes |
+| vpc\_name | VPC Name for the AWS account and region specified | `string` | n/a | yes |
 
 ## Outputs
 
