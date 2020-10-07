@@ -169,7 +169,8 @@ Example main.tf:
     }
 
     module "kong" {
-      source = "github.com/kong/kong-terraform-aws?ref=v3.3"
+      source = "faros-ai/kong/aws"
+      version = "3.4.28"
 
       vpc                   = "my-vpc"
       environment           = "dev"
