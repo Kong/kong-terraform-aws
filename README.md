@@ -1,11 +1,5 @@
 # Kong Cluster Terraform Module for AWS
 
-:warning: This terraform module serves as reference point for getting started.
-While it may work for certain scenarios, it is NOT intended to work with
-all setups. Please fork the repo or copy over code from here
-(liberal Apache-licensed).
-
-
 [Kong API Gateway](https://konghq.com/) is an API gateway microservices
 management layer. Both Kong and Enterprise Edition are supported.
 
