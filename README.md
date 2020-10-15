@@ -126,11 +126,8 @@ No requirements.
 | redis\_instance\_type | Redis node instance type | `string` | `"cache.t2.small"` | no |
 | redis\_subnets | Redis cluster subnet group name | `string` | `"cache-subnets"` | no |
 | service | Resource service tag | `string` | `"kong"` | no |
-| ssl\_cert\_admin | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_external | SSL certificate domain name for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_internal | SSL certificate domain name for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_manager | SSL certificate domain name for the Kong Manager HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_portal | SSL certificate domain name for the Dev Portal listener | `string` | n/a | yes |
+| ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
+| ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |

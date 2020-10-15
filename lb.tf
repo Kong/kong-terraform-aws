@@ -58,7 +58,7 @@ resource "aws_lb_listener" "external-https" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.external-cert.arn
+  certificate_arn = var.ssl_cert_external_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.external[0].arn
@@ -269,7 +269,7 @@ resource "aws_lb_listener" "internal-https" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+  certificate_arn = var.ssl_cert_internal_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.internal[0].arn
@@ -285,7 +285,7 @@ resource "aws_lb_listener" "admin" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+  certificate_arn = var.ssl_cert_internal_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.admin[0].arn
@@ -301,7 +301,7 @@ resource "aws_lb_listener" "manager" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+  certificate_arn = var.ssl_cert_internal_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.manager[0].arn
@@ -317,7 +317,7 @@ resource "aws_lb_listener" "portal-gui" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+  certificate_arn = var.ssl_cert_internal_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.portal-gui[0].arn
@@ -333,7 +333,7 @@ resource "aws_lb_listener" "portal" {
   protocol          = "HTTPS"
 
   ssl_policy      = var.ssl_policy
-  certificate_arn = data.aws_acm_certificate.internal-cert.arn
+  certificate_arn = var.ssl_cert_internal_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.portal[0].arn
