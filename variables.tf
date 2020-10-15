@@ -361,6 +361,10 @@ variable "ssl_cert_internal_arn" {
   type        = string
 }
 
+variable "ssl_cert_admin_domain" {
+  description = "SSL certificate domain name for the Kong Admin API HTTPS listener"
+  type        = string
+}
 
 variable "ssl_policy" {
   description = "SSL Policy for HTTPS Listeners"

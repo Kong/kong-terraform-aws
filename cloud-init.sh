@@ -244,7 +244,7 @@ if [ $? = 0 ]; then
       -d 'port=8001'
 
     curl -s -X POST http://localhost:8001/services/kong-admin-api/routes \
-      -d "hosts[]=${ADMIN_CERT}" \
+      -d "hosts[]=${ADMIN_CERT_DOMAIN}" \
       -d 'paths[]=/kong-admin-api' \
       -d 'name=kong-admin-route'
 

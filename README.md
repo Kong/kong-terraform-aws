@@ -126,6 +126,7 @@ No requirements.
 | redis\_instance\_type | Redis node instance type | `string` | `"cache.t2.small"` | no |
 | redis\_subnets | Redis cluster subnet group name | `string` | `"cache-subnets"` | no |
 | service | Resource service tag | `string` | `"kong"` | no |
+| ssl\_cert\_admin\_domain | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
@@ -161,16 +162,14 @@ Example main.tf:
 
     module "kong" {
       source = "faros-ai/kong/aws"
-      version = "3.4.28"
+      version = "3.4.30"
 
       vpc                   = "my-vpc"
       environment           = "dev"
       ec2_key_name          = "my-key"
-      ssl_cert_external     = "*.domain.name"
-      ssl_cert_internal     = "*.domain.name"
-      ssl_cert_admin        = "*.domain.name"
-      ssl_cert_manager      = "*.domain.name"
-      ssl_cert_portal       = "*.domain.name"
+      ssl_cert_external_arn = aws_acm_certificate.cert.arn
+      ssl_cert_internal_arn = aws_acm_certificate.cert.arn
+      ssl_cert_admin_domain = "*.domain.name"
 
       tags = {
          Owner = "devops@domain.name"

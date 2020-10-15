@@ -6,19 +6,19 @@ data "template_file" "shell-script" {
   template = file("${path.module}/cloud-init.sh")
 
   vars = {
-    DB_USER        = replace(format("%s_%s", var.service, var.environment), "-", "_")
-    CE_PKG         = var.ce_pkg
-    EE_PKG         = var.ee_pkg
-    PARAMETER_PATH = format("/%s/%s", var.service, var.environment)
-    REGION         = data.aws_region.current.name
-    VPC_CIDR_BLOCK = var.vpc_cidr_block
-    DECK_VERSION   = var.deck_version
-    MANAGER_HOST   = local.manager_host
-    PORTAL_HOST    = local.portal_host
-    SESSION_SECRET = random_string.session_secret.result
-    ADMIN_CERT     = var.ssl_cert_admin
-    ADMIN_USER     = var.admin_user
-    ADMIN_PASS     = random_string.admin_password.result
+    DB_USER           = replace(format("%s_%s", var.service, var.environment), "-", "_")
+    CE_PKG            = var.ce_pkg
+    EE_PKG            = var.ee_pkg
+    PARAMETER_PATH    = format("/%s/%s", var.service, var.environment)
+    REGION            = data.aws_region.current.name
+    VPC_CIDR_BLOCK    = var.vpc_cidr_block
+    DECK_VERSION      = var.deck_version
+    MANAGER_HOST      = local.manager_host
+    PORTAL_HOST       = local.portal_host
+    SESSION_SECRET    = random_string.session_secret.result
+    ADMIN_CERT_DOMAIN = var.ssl_cert_admin_domain
+    ADMIN_USER        = var.admin_user
+    ADMIN_PASS        = random_string.admin_password.result
   }
 }
 
