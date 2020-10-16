@@ -453,6 +453,13 @@ variable "db_storage_type" {
   default = "gp2"
 }
 
+variable "db_storage_encrypted" {
+  description = "Specifies whether the database instance is encrypted"
+  type        = string
+
+  default = true
+}
+
 variable "db_username" {
   description = "Database master username"
   type        = string

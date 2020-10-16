@@ -78,6 +78,7 @@ No requirements.
 | db\_instance\_class | Database instance class | `string` | `"db.t2.micro"` | no |
 | db\_instance\_count | Number of database instances (0 to leverage an existing db) | `string` | `1` | no |
 | db\_multi\_az | Boolean to specify if RDS is multi-AZ | `string` | `false` | no |
+| db\_storage\_encrypted | Specifies whether the database instance is encrypted | `string` | `true` | no |
 | db\_storage\_size | Size of the database storage in Gigabytes | `string` | `100` | no |
 | db\_storage\_type | Type of the database storage | `string` | `"gp2"` | no |
 | db\_subnets | Database instance subnet group name | `string` | `"db-subnets"` | no |

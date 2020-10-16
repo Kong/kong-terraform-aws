@@ -8,6 +8,8 @@ resource "aws_db_instance" "kong" {
   allocated_storage = var.db_storage_size
   storage_type      = "gp2"
 
+  storage_encrypted = var.db_storage_encrypted
+
   backup_retention_period = var.db_backup_retention_period
   db_subnet_group_name    = var.db_subnets
   multi_az                = var.db_multi_az
