@@ -460,6 +460,13 @@ variable "db_storage_encrypted" {
   default = true
 }
 
+variable "db_kms_key_id" {
+  description = "The ARN for the KMS encryption key. If creating an encrypted replica, set this to the destination KMS ARN. If db_storage_encrypted is set to true and kms_key_id is not specified the default KMS key created in your account will be used"
+  type        = string
+
+  default = ""
+}
+
 variable "db_username" {
   description = "Database master username"
   type        = string

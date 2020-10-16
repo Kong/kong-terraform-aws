@@ -77,6 +77,7 @@ No requirements.
 | db\_final\_snapshot\_identifier | The final snapshot name of the RDS instance when it gets destroyed | `string` | `""` | no |
 | db\_instance\_class | Database instance class | `string` | `"db.t2.micro"` | no |
 | db\_instance\_count | Number of database instances (0 to leverage an existing db) | `string` | `1` | no |
+| db\_kms\_key\_id | The ARN for the KMS encryption key. If creating an encrypted replica, set this to the destination KMS ARN. If db\_storage\_encrypted is set to true and kms\_key\_id is not specified the default KMS key created in your account will be used | `string` | `""` | no |
 | db\_multi\_az | Boolean to specify if RDS is multi-AZ | `string` | `false` | no |
 | db\_storage\_encrypted | Specifies whether the database instance is encrypted | `string` | `true` | no |
 | db\_storage\_size | Size of the database storage in Gigabytes | `string` | `100` | no |
