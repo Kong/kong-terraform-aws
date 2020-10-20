@@ -1,5 +1,6 @@
 resource "aws_kms_key" "kong" {
-  description = format("%s-%s", var.service, var.environment)
+  description         = format("%s-%s", var.service, var.environment)
+  enable_key_rotation = true
   tags = merge(
     {
       "Name"        = format("%s-%s", var.service, var.environment),
