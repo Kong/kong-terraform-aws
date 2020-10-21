@@ -48,6 +48,10 @@ resource "aws_lb" "external" {
     },
     var.tags
   )
+  timeouts {
+    create = var.lb_creation_timeout
+    delete = var.lb_deletion_timeout
+  }
 }
 
 resource "aws_lb_listener" "external-https" {
@@ -246,6 +250,10 @@ resource "aws_lb" "internal" {
     },
     var.tags
   )
+  timeouts {
+    create = var.lb_creation_timeout
+    delete = var.lb_deletion_timeout
+  }
 }
 
 resource "aws_lb_listener" "internal-http" {

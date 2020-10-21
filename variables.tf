@@ -288,6 +288,20 @@ variable "enable_internal_lb" {
   default = true
 }
 
+variable "lb_creation_timeout" {
+  description = "Timeout for creating of load balancers"
+  type        = string
+
+  default = "20m"
+}
+
+variable "lb_deletion_timeout" {
+  description = "Timeout for deleting of load balancers"
+  type        = string
+
+  default = "20m"
+}
+
 variable "deregistration_delay" {
   description = "Seconds to wait before changing the state of a deregistering target from draining to unused"
   type        = string
