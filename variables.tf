@@ -289,14 +289,14 @@ variable "enable_internal_lb" {
 }
 
 variable "lb_creation_timeout" {
-  description = "Timeout for creating of load balancers"
+  description = "Timeout for creating load balancers"
   type        = string
 
   default = "20m"
 }
 
 variable "lb_deletion_timeout" {
-  description = "Timeout for deleting of load balancers"
+  description = "Timeout for deleting load balancers"
   type        = string
 
   default = "20m"

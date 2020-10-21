@@ -115,8 +115,8 @@ No requirements.
 | idle\_timeout | Seconds a connection can idle before being disconnected | `string` | `60` | no |
 | internal\_http\_cidr\_blocks | Internal ingress access to Kong Proxy via the load balancer (HTTP) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | internal\_https\_cidr\_blocks | Internal ingress access to Kong Proxy via the load balancer (HTTPS) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| lb\_creation\_timeout | Timeout for creating of load balancers | `string` | `"20m"` | no |
-| lb\_deletion\_timeout | Timeout for deleting of load balancers | `string` | `"20m"` | no |
+| lb\_creation\_timeout | Timeout for creating load balancers | `string` | `"20m"` | no |
+| lb\_deletion\_timeout | Timeout for deleting load balancers | `string` | `"20m"` | no |
 | manager\_cidr\_blocks | Access to Kong Manager (Enterprise Edition only) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | manager\_host | Hostname to access Kong Manager (Enterprise Edition only) | `string` | `"default"` | no |
 | module\_dependencies | Variable to force the module to wait for other resources to finish creation | `any` | `null` | no |
