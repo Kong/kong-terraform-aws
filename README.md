@@ -20,7 +20,7 @@ By default, the following resources will be provisioned:
 - An IAM instance profile for access to Kong specific SSM Parameter Store 
   metadata and secrets
 
-Optionally, a redis cluster can be provisioned for rate-limiting counters and
+Optionally, a Redis cluster can be provisioned for rate-limiting counters and
 caching, and most default resources can be disabled.  See variables.tf for a
 complete list and description of tunables. 
 
@@ -145,6 +145,7 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | admin\_password | The admin password for Kong |
+| admin\_password\_key\_name | The SSM key name for admin password for Kong |
 | admin\_token | The admin token for Kong |
 | autoscaling\_group | The autoscaling group |
 | lb\_endpoint\_external | The external load balancer endpoint |

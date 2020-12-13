@@ -21,6 +21,11 @@ output "admin_password" {
   description = "The admin password for Kong"
 }
 
+output "admin_password_key_name" {
+  value       = aws_ssm_parameter.admin-password.name
+  description = "The SSM key name for admin password for Kong"
+}
+
 output "admin_token" {
   sensitive   = true
   value       = random_string.admin_token.result
