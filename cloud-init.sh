@@ -147,7 +147,7 @@ chmod 2775 /usr/local/kong
 
 # Initialize Kong
 echo "Initializing Kong"
-if [ "$EE_LICENSE" != "placeholder" ]; then
+if [ "$EE_LICENSE" = "placeholder" ]; then
     ADMIN_TOKEN=$(aws_get_parameter "ee/admin/token")
     sudo -u kong KONG_PASSWORD=$ADMIN_TOKEN kong migrations bootstrap
 else 
