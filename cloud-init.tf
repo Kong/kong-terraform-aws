@@ -19,7 +19,7 @@ resource "template_file" "shell_script_mod" {
   }
 }
 
-data "template_cloudinit_config" "cloud-init" {
+resource "template_cloudinit_config" "cloud-init" {
   gzip          = true
   base64_encode = true
 
