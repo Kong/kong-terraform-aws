@@ -1,11 +1,15 @@
 fail_fast: false
 repos:
 - repo: git://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.43.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+  rev: v1.48.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
   hooks:
     - id: terraform_fmt
     - id: terraform_docs
+      args:
+        - '--args=--sort-by-required'
     - id: terraform_tflint
-    # - id: terraform_validate
-    # - id: terraform_tfsec
+    - id: terraform_validate
+    - id: terraform_tfsec
+    # The following hooks require some more extra work to be applied:
+    # - id: checkov
 

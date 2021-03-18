@@ -11,6 +11,9 @@ resource "aws_elasticache_replication_group" "kong" {
   parameter_group_name  = format("%s-%s", var.service, var.environment)
   port                  = 6379
 
+  at_rest_encryption_enabled = true
+  transit_encryption_enabled = true
+
   subnet_group_name  = var.redis_subnets
   security_group_ids = [aws_security_group.redis.id]
 

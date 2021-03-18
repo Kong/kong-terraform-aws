@@ -222,6 +222,13 @@ variable "ec2_root_volume_type" {
   default = "gp2"
 }
 
+variable "ec2_root_volume_encryption" {
+  description = "Should encrypt ec2 root volume"
+  type        = bool
+
+  default = true
+}
+
 variable "ec2_key_name" {
   description = "AWS SSH Key"
   type        = string

@@ -31,7 +31,7 @@ resource "aws_lb" "external" {
   count = var.enable_external_lb ? 1 : 0
 
   name     = format("%s-%s-external", var.service, var.environment)
-  internal = false
+  internal = false #tfsec:ignore:AWS005
   subnets  = var.aws_public_subnet_ids
 
   security_groups = [aws_security_group.external-lb.id]
@@ -261,7 +261,7 @@ resource "aws_lb_listener" "internal-http" {
 
   load_balancer_arn = aws_lb.internal[0].arn
   port              = 80
-  protocol          = "HTTP"
+  protocol          = "HTTP" #tfsec:ignore:AWS004
 
   default_action {
     target_group_arn = aws_lb_target_group.internal[0].arn

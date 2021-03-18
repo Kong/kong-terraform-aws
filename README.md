@@ -59,14 +59,21 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| aws\_private\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
+| aws\_public\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
+| environment | Resource environment tag (i.e. dev, stage, prod) | `string` | n/a | yes |
+| ssl\_cert\_admin\_domain | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
+| ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
+| ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
+| vpc\_cidr\_block | VPC cidr block for the AWS account and region specified | `string` | n/a | yes |
+| vpc\_id | VPC Id for the AWS account and region specified | `string` | n/a | yes |
+| vpc\_name | VPC Name for the AWS account and region specified | `string` | n/a | yes |
 | admin\_cidr\_blocks | Access to Kong Admin API (Enterprise Edition only) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | admin\_user | The user name for Kong admin user | `string` | `"kong-admin"` | no |
 | asg\_desired\_capacity | The number of instances that should be running in the group | `string` | `2` | no |
 | asg\_health\_check\_grace\_period | Time in seconds after instance comes into service before checking health | `string` | `300` | no |
 | asg\_max\_size | The maximum size of the auto scale group | `string` | `3` | no |
 | asg\_min\_size | The minimum size of the auto scale group | `string` | `1` | no |
-| aws\_private\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
-| aws\_public\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
 | ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.4.focal.amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
@@ -92,6 +99,7 @@ No requirements.
 | ec2\_ami | Map of Ubuntu Minimal AMIs by region | `map(string)` | <pre>{<br>  "us-east-1": "ami-05c457ee3f21d75f8"<br>}</pre> | no |
 | ec2\_instance\_type | EC2 instance type | `string` | `"t2.micro"` | no |
 | ec2\_key\_name | AWS SSH Key | `string` | `""` | no |
+| ec2\_root\_volume\_encryption | Should encrypt ec2 root volume | `bool` | `true` | no |
 | ec2\_root\_volume\_size | Size of the root volume (in Gigabytes) | `string` | `8` | no |
 | ec2\_root\_volume\_type | Type of the root volume (standard, gp2, or io) | `string` | `"gp2"` | no |
 | ee\_bintray\_auth | Bintray authentication for the Enterprise Edition download (Format: username:apikey) | `string` | `"placeholder"` | no |
@@ -103,7 +111,6 @@ No requirements.
 | enable\_external\_lb | Boolean to enable/create the external load balancer, exposing Kong to the Internet | `string` | `true` | no |
 | enable\_internal\_lb | Boolean to enable/create the internal load balancer for the forward proxy | `string` | `true` | no |
 | enable\_redis | Boolean to enable redis AWS resource | `string` | `false` | no |
-| environment | Resource environment tag (i.e. dev, stage, prod) | `string` | n/a | yes |
 | external\_cidr\_blocks | External ingress access to Kong Proxy via the load balancer | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | health\_check\_healthy\_threshold | Number of consecutives checks before a unhealthy target is considered healthy | `string` | `5` | no |
 | health\_check\_interval | Seconds between health checks | `string` | `5` | no |
@@ -130,15 +137,9 @@ No requirements.
 | redis\_instance\_type | Redis node instance type | `string` | `"cache.t2.small"` | no |
 | redis\_subnets | Redis cluster subnet group name | `string` | `"cache-subnets"` | no |
 | service | Resource service tag | `string` | `"kong"` | no |
-| ssl\_cert\_admin\_domain | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
-| ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |
-| vpc\_cidr\_block | VPC cidr block for the AWS account and region specified | `string` | n/a | yes |
-| vpc\_id | VPC Id for the AWS account and region specified | `string` | n/a | yes |
-| vpc\_name | VPC Name for the AWS account and region specified | `string` | n/a | yes |
 
 ## Outputs
 

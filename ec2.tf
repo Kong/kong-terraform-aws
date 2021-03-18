@@ -18,6 +18,7 @@ resource "aws_launch_configuration" "kong" {
   root_block_device {
     volume_size = var.ec2_root_volume_size
     volume_type = var.ec2_root_volume_type
+    encrypted   = var.ec2_root_volume_encryption
   }
 
   lifecycle {

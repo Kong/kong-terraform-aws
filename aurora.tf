@@ -12,6 +12,9 @@ resource "aws_rds_cluster" "kong" {
   db_subnet_group_name            = var.db_subnets
   db_cluster_parameter_group_name = format("%s-%s-cluster", var.service, var.environment)
 
+  storage_encrypted = var.db_storage_encrypted
+  kms_key_id        = var.db_kms_key_id #tfsec:ignore:AWS051
+
   vpc_security_group_ids = [aws_security_group.postgresql.id]
 
   tags = merge(

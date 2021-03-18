@@ -9,7 +9,7 @@ resource "aws_db_instance" "kong" {
   storage_type      = "gp2"
 
   storage_encrypted = var.db_storage_encrypted
-  kms_key_id        = var.db_kms_key_id
+  kms_key_id        = var.db_kms_key_id #tfsec:ignore:AWS051
 
   backup_retention_period = var.db_backup_retention_period
   db_subnet_group_name    = var.db_subnets
