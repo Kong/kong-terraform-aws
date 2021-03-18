@@ -1,8 +1,8 @@
-data "template_file" "cloud_init" {
+data "template_file" "cloud-init" {
   template = file("${path.module}/cloud-init.cfg")
 }
 
-data "template_file" "shell_script" {
+data "template_file" "shell-script" {
   template = file("${path.module}/cloud-init.sh")
 
   vars = {
@@ -26,11 +26,11 @@ data "template_cloudinit_config" "cloud-init" {
   part {
     filename     = "init.cfg"
     content_type = "text/cloud-config"
-    content      = data.template_file.cloud_init.rendered
+    content      = data.template_file.cloud-init.rendered
   }
 
   part {
     content_type = "text/x-shellscript"
-    content      = data.template_file.shell_script.rendered
+    content      = data.template_file.shell-script.rendered
   }
 }
