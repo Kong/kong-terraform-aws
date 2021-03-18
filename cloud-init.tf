@@ -1,8 +1,8 @@
-resource "template_file" "cloud_init_mod" {
+data "template_file" "cloud_init_mod" {
   template = file("${path.module}/cloud-init.cfg")
 }
 
-resource "template_file" "shell_script_mod" {
+data "template_file" "shell_script_mod" {
   template = file("${path.module}/cloud-init.sh")
 
   vars = {
@@ -19,18 +19,18 @@ resource "template_file" "shell_script_mod" {
   }
 }
 
-resource "template_cloudinit_config" "cloud-init" {
+data "template_cloudinit_config" "cloud-init" {
   gzip          = true
   base64_encode = true
 
   part {
     filename     = "init.cfg"
     content_type = "text/cloud-config"
-    content      = resource.template_file.cloud_init_mod.rendered
+    content      = data.template_file.cloud_init_mod.rendered
   }
 
   part {
     content_type = "text/x-shellscript"
-    content      = resource.template_file.shell_script_mod.rendered
+    content      = data.template_file.shell_script_mod.rendered
   }
 }
