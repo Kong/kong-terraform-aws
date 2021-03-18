@@ -168,7 +168,7 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1    = "ami-0dc57c39cf6e7f503"
+    us-east-1    = "ami-097f2dec72be3d174"
     us-east-2    = "ami-0ba142a7063a73767"
     us-west-1    = "ami-07b69f5dcdbb4abaf"
     us-west-2    = "ami-028b81a9f357b2b96"
