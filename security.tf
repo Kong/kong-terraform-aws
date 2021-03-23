@@ -104,6 +104,17 @@ resource "aws_security_group_rule" "admin-ingress-bastion" {
   cidr_blocks = var.bastion_cidr_blocks
 }
 
+resource "aws_security_group_rule" "ssh-ingress-bastion" {
+  security_group_id = aws_security_group.kong.id
+
+  type      = "ingress"
+  from_port = 22
+  to_port   = 22
+  protocol  = "tcp"
+
+  cidr_blocks = var.bastion_ssh
+}
+
 # External load balancer access
 resource "aws_security_group_rule" "proxy-ingress-external-lb" {
   security_group_id = aws_security_group.kong.id
@@ -411,6 +422,157 @@ resource "aws_security_group_rule" "internal-lb-egress-portal" {
   type      = "egress"
   from_port = 8004
   to_port   = 8004
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong.id
+}
+
+
+# Load balancer
+# Kong Manager External
+resource "aws_security_group" "kong-manager-external-lb" {
+  description = "Kong External Load Balancer"
+  name        = format("%s-%s-external-lb", var.service, var.environment)
+  vpc_id      = data.aws_vpc.vpc.id
+
+  tags = merge(
+    {
+      "Name"        = format("%s-%s-external-manager-lb", var.service, var.environment),
+      "Environment" = var.environment,
+      "Description" = var.description,
+      "Service"     = var.service,
+    },
+    var.tags
+  )
+}
+
+resource "aws_security_group_rule" "internal-lb-ingress-proxy-http" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-proxy" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 443
+  to_port   = 443
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-proxy" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 8000
+  to_port   = 8000
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-admin" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 8001
+  to_port   = 8001
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-manager" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 8002
+  to_port   = 8002
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-proxy" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 8444
+  to_port   = 8444
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-ingress-proxy" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "ingress"
+  from_port = 8445
+  to_port   = 8445
+  protocol  = "tcp"
+
+  cidr_blocks = var.external_cidr_blocks
+}
+
+resource "aws_security_group_rule" "external-lb-egress-proxy" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "egress"
+  from_port = 8000
+  to_port   = 8000
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong.id
+}
+
+resource "aws_security_group_rule" "external-lb-egress-admin" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "egress"
+  from_port = 8001
+  to_port   = 8001
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong.id
+}
+
+resource "aws_security_group_rule" "external-lb-egress-admin" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "egress"
+  from_port = 8002
+  to_port   = 8002
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong.id
+}
+
+resource "aws_security_group_rule" "external-lb-egress-admin" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "egress"
+  from_port = 8444
+  to_port   = 8444
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong.id
+}
+
+resource "aws_security_group_rule" "external-lb-egress-admin" {
+  security_group_id = aws_security_group.kong-manager-external-lb.id
+
+  type      = "egress"
+  from_port = 8445
+  to_port   = 8445
   protocol  = "tcp"
 
   source_security_group_id = aws_security_group.kong.id
