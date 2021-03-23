@@ -169,6 +169,11 @@ variable "ee_license" {
   default = "placeholder"
 }
 
+variable "manager_url_add" {
+  description = "URL used in either Route53 or Cloudflare as the Kong Manager origin"
+  type        = string
+}
+
 # EC2 settings
 
 # https://wiki.ubuntu.com/Minimal
