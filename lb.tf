@@ -322,3 +322,173 @@ resource "aws_lb_listener" "portal" {
     type             = "forward"
   }
 }
+
+
+# External Kong Manager
+resource "aws_lb_target_group" "manager-lb" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  name     = format("%s-%s-manager-lb", var.service, var.environment)
+  port     = 8000
+  protocol = "HTTP"
+  vpc_id   = data.aws_vpc.vpc.id
+
+  health_check {
+    healthy_threshold   = var.health_check_healthy_threshold
+    interval            = var.health_check_interval
+    path                = "/status"
+    port                = 8000
+    timeout             = var.health_check_timeout
+    unhealthy_threshold = var.health_check_unhealthy_threshold
+  }
+
+  tags = merge(
+    {
+      "Name"        = format("%s-%s-manager-lb", var.service, var.environment),
+      "Environment" = var.environment,
+      "Description" = var.description,
+      "Service"     = var.service,
+    },
+    var.tags
+  )
+}
+
+resource "aws_lb_target_group" "admin-external" {
+  count = var.enable_ee ? 1 : 0
+
+  name     = format("%s-%s-admin-external", var.service, var.environment)
+  port     = 8001
+  protocol = "HTTP"
+  vpc_id   = data.aws_vpc.vpc.id
+
+  health_check {
+    healthy_threshold   = var.health_check_healthy_threshold
+    interval            = var.health_check_interval
+    path                = "/status"
+    port                = 8000
+    timeout             = var.health_check_timeout
+    unhealthy_threshold = var.health_check_unhealthy_threshold
+  }
+
+  tags = merge(
+    {
+      "Name"        = format("%s-%s-admin-external", var.service, var.environment),
+      "Environment" = var.environment,
+      "Description" = var.description,
+      "Service"     = var.service,
+    },
+    var.tags
+  )
+}
+
+resource "aws_lb_target_group" "manager-external" {
+  count = var.enable_ee ? 1 : 0
+
+  name     = format("%s-%s-manager-external", var.service, var.environment)
+  port     = 8002
+  protocol = "HTTP"
+  vpc_id   = data.aws_vpc.vpc.id
+
+  health_check {
+    healthy_threshold   = var.health_check_healthy_threshold
+    interval            = var.health_check_interval
+    path                = "/status"
+    port                = 8000
+    timeout             = var.health_check_timeout
+    unhealthy_threshold = var.health_check_unhealthy_threshold
+  }
+
+  tags = merge(
+    {
+      "Name"        = format("%s-%s-manager-external", var.service, var.environment),
+      "Environment" = var.environment,
+      "Description" = var.description,
+      "Service"     = var.service,
+    },
+    var.tags
+  )
+}
+
+resource "aws_lb" "manager-external" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  name     = format("%s-%s-manager-external", var.service, var.environment)
+  internal = false
+  subnets  = data.aws_subnet_ids.public.ids
+
+  security_groups = [aws_security_group.kong-manager-external-lb.id]
+
+  enable_deletion_protection = var.enable_deletion_protection
+  idle_timeout               = var.idle_timeout
+
+  tags = merge(
+    {
+      "Name"        = format("%s-%s-manager-external", var.service, var.environment),
+      "Environment" = var.environment,
+      "Description" = var.description,
+      "Service"     = var.service,
+    },
+    var.tags
+  )
+}
+
+resource "aws_lb_listener" "manager-http" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  load_balancer_arn = aws_lb.manager-external[0].arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = aws_lb_target_group.manager-lb[0].arn
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_listener" "manager-https" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  load_balancer_arn = aws_lb.manager-external[0].arn
+  port              = 443
+  protocol          = "HTTPS"
+
+  ssl_policy      = var.ssl_policy
+  certificate_arn = data.aws_acm_certificate.external-cert.arn
+
+  default_action {
+    target_group_arn = aws_lb_target_group.manager-external[0].arn
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_listener" "admin" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  load_balancer_arn = aws_lb.manager-external[0].arn
+  port              = 8444
+  protocol          = "HTTPS"
+
+  ssl_policy      = var.ssl_policy
+  certificate_arn = data.aws_acm_certificate.external-cert.arn
+
+  default_action {
+    target_group_arn = aws_lb_target_group.admin-external[0].arn
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_listener" "manager" {
+  count = var.enable_kong_manager_lb ? 1 : 0
+
+  load_balancer_arn = aws_lb.manager-external[0].arn
+  port              = 8445
+  protocol          = "HTTPS"
+
+  ssl_policy      = var.ssl_policy
+  certificate_arn = data.aws_acm_certificate.external-cert.arn
+
+  default_action {
+    target_group_arn = aws_lb_target_group.manager-external[0].arn
+    type             = "forward"
+  }
+}
