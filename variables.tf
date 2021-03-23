@@ -264,6 +264,13 @@ variable "enable_internal_lb" {
   default = true
 }
 
+variable "enable_kong_manager_lb" {
+  description = "Boolean to enable/create the internal load balancer for the forward proxy"
+  type        = string
+
+  default = true
+}
+
 variable "deregistration_delay" {
   description = "Seconds to wait before changing the state of a deregistering target from draining to unused"
   type        = string
