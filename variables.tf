@@ -42,6 +42,15 @@ variable "bastion_cidr_blocks" {
   ]
 }
 
+variable "bastion_ssh" {
+  description = "Bastion hosts allowed ssh access to PostgreSQL and Kong Instance"
+  type        = list(string)
+
+  default = [
+    "127.0.0.1/32",
+  ]
+}
+
 variable "external_cidr_blocks" {
   description = "External ingress access to Kong Proxy via the load balancer"
   type        = list(string)
@@ -160,6 +169,11 @@ variable "ee_license" {
   default = "placeholder"
 }
 
+variable "manager_url_add" {
+  description = "URL used in either Route53 or Cloudflare as the Kong Manager origin"
+  type        = string
+}
+
 # EC2 settings
 
 # https://wiki.ubuntu.com/Minimal
@@ -258,6 +272,13 @@ variable "enable_external_lb" {
 }
 
 variable "enable_internal_lb" {
+  description = "Boolean to enable/create the internal load balancer for the forward proxy"
+  type        = string
+
+  default = true
+}
+
+variable "enable_kong_manager_lb" {
   description = "Boolean to enable/create the internal load balancer for the forward proxy"
   type        = string
 

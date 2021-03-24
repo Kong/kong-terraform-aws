@@ -123,7 +123,7 @@ portal_gui_listen = 0.0.0.0:8003
 portal_api_listen = 0.0.0.0:8004
 
 admin_api_uri = https://${MANAGER_HOST}:8444
-admin_gui_url = https://${MANAGER_HOST}:8445
+admin_gui_url = https://${MANAGER_URL}
 
 portal              = on
 portal_gui_protocol = https
