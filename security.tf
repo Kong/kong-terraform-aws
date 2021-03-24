@@ -431,8 +431,8 @@ resource "aws_security_group_rule" "internal-lb-egress-portal" {
 # Load balancer
 # Kong Manager External
 resource "aws_security_group" "kong-manager-external-lb" {
-  description = "Kong External Load Balancer"
-  name        = format("%s-%s-external-lb", var.service, var.environment)
+  description = "Kong Manager External Load Balancer"
+  name        = format("%s-%s-external-manager-lb", var.service, var.environment)
   vpc_id      = data.aws_vpc.vpc.id
 
   tags = merge(
