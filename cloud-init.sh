@@ -283,7 +283,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     cat <<EOF >> /etc/kong/kong.conf
 enforce_rbac = on
 admin_gui_auth = basic-auth
-admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
+admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":true, "cookie_samesite":"None" }
 EOF
 
     sv start /etc/sv/kong     
