@@ -512,7 +512,7 @@ resource "aws_security_group_rule" "mgr-external-lb-ingress-proxy" {
   cidr_blocks = var.external_cidr_blocks
 }
 
-resource "aws_security_group_rule" "mgr-external-lb-ingress-proxy" {
+resource "aws_security_group_rule" "mgr-lb-ingress-proxy" {
   security_group_id = aws_security_group.kong-manager-external-lb.id
 
   type      = "ingress"
@@ -545,7 +545,7 @@ resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
   source_security_group_id = aws_security_group.kong.id
 }
 
-resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
+resource "aws_security_group_rule" "mgr-lb-egress-admin" {
   security_group_id = aws_security_group.kong-manager-external-lb.id
 
   type      = "egress"
@@ -556,7 +556,7 @@ resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
   source_security_group_id = aws_security_group.kong.id
 }
 
-resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
+resource "aws_security_group_rule" "mgr-ext-lb-egress-admin" {
   security_group_id = aws_security_group.kong-manager-external-lb.id
 
   type      = "egress"
@@ -567,7 +567,7 @@ resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
   source_security_group_id = aws_security_group.kong.id
 }
 
-resource "aws_security_group_rule" "mgr-external-lb-egress-admin" {
+resource "aws_security_group_rule" "manager-ext-lb-egress-admin" {
   security_group_id = aws_security_group.kong-manager-external-lb.id
 
   type      = "egress"
