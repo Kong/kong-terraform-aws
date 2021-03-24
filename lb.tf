@@ -461,7 +461,7 @@ resource "aws_lb_listener" "manager-https" {
   }
 }
 
-resource "aws_lb_listener" "admin" {
+resource "aws_lb_listener" "admin-external" {
   count = var.enable_kong_manager_lb ? 1 : 0
 
   load_balancer_arn = aws_lb.manager-external[0].arn
@@ -477,7 +477,7 @@ resource "aws_lb_listener" "admin" {
   }
 }
 
-resource "aws_lb_listener" "manager" {
+resource "aws_lb_listener" "manager-external" {
   count = var.enable_kong_manager_lb ? 1 : 0
 
   load_balancer_arn = aws_lb.manager-external[0].arn
