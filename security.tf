@@ -138,6 +138,40 @@ resource "aws_security_group_rule" "admin-ingress-external-lb" {
   source_security_group_id = aws_security_group.external-lb.id
 }
 
+# External Manager load balancer access
+resource "aws_security_group_rule" "proxy-ingress-manager-external-lb" {
+  security_group_id = aws_security_group.kong.id
+
+  type      = "ingress"
+  from_port = 8000
+  to_port   = 8000
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong-manager-external-lb.id
+}
+
+resource "aws_security_group_rule" "admin-ingress-manager-external-lb" {
+  security_group_id = aws_security_group.kong.id
+
+  type      = "ingress"
+  from_port = 8001
+  to_port   = 8001
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong-manager-external-lb.id
+}
+
+resource "aws_security_group_rule" "manager-ingress-manager-external-lb" {
+  security_group_id = aws_security_group.kong.id
+
+  type      = "ingress"
+  from_port = 8002
+  to_port   = 8002
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.kong-manager-external-lb.id
+}
+
 # Internal load balancer access
 resource "aws_security_group_rule" "proxy-ingress-internal-lb" {
   security_group_id = aws_security_group.kong.id
