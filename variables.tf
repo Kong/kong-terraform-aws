@@ -253,7 +253,7 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition-1.3.0.1.bionic.all.deb "
+  default = "kong-enterprise-edition-2.2.1.0.bionic.all.deb"
 }
 
 variable "ce_pkg" {
