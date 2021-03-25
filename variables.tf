@@ -535,7 +535,7 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "1.0.0"
+  default = "1.5.1"
 }
 
 variable "db_final_snapshot_identifier" {
