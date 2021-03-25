@@ -14,6 +14,7 @@ data "template_file" "shell-script" {
     VPC_CIDR_BLOCK = data.aws_vpc.vpc.cidr_block
     DECK_VERSION   = var.deck_version
     MANAGER_HOST   = local.manager_host
+    MANAGER_URL    = var.manager_url_add
     PORTAL_HOST    = local.portal_host
     SESSION_SECRET = random_string.session_secret.result
   }

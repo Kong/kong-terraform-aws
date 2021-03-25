@@ -45,7 +45,10 @@ resource "aws_autoscaling_group" "kong" {
       aws_lb_target_group.admin.*.arn,
       aws_lb_target_group.manager.*.arn,
       aws_lb_target_group.portal-gui.*.arn,
-      aws_lb_target_group.portal.*.arn
+      aws_lb_target_group.portal.*.arn,
+      aws_lb_target_group.manager-external.*.arn,
+      aws_lb_target_group.admin-external.*.arn,
+      aws_lb_target_group.manager-lb.*.arn
     )
   )
 
