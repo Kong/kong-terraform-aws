@@ -75,7 +75,7 @@ No requirements.
 | asg\_max\_size | The maximum size of the auto scale group | `string` | `3` | no |
 | asg\_min\_size | The minimum size of the auto scale group | `string` | `1` | no |
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
-| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.1.4.focal.amd64.deb"` | no |
+| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.3.3.focal.amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
 | db\_backup\_retention\_period | The number of days to retain backups | `string` | `7` | no |
 | db\_engine\_mode | Engine mode for Aurora | `string` | `"provisioned"` | no |
@@ -104,7 +104,7 @@ No requirements.
 | ec2\_root\_volume\_type | Type of the root volume (standard, gp2, or io) | `string` | `"gp2"` | no |
 | ee\_bintray\_auth | Bintray authentication for the Enterprise Edition download (Format: username:apikey) | `string` | `"placeholder"` | no |
 | ee\_license | Enterprise Edition license key (JSON format) | `string` | `"placeholder"` | no |
-| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.1.4.focal.all.deb"` | no |
+| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.3.3.focal.all.deb"` | no |
 | enable\_aurora | Boolean to enable Aurora | `string` | `"false"` | no |
 | enable\_deletion\_protection | Boolean to enable delete protection on the ALB | `string` | `true` | no |
 | enable\_ee | Boolean to enable Kong Enterprise Edition settings | `string` | `false` | no |
@@ -140,6 +140,8 @@ No requirements.
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |
+| vanta\_key | Vanta key for registering Vanta Agent on Kong instances. If key is not provided Vanta agent wont be installed | `string` | `""` | no |
+| vanta\_script\_url | Vanta agent installation script. For more info visit - https://github.com/VantaInc/vanta-agent-scripts | `string` | `"https://raw.githubusercontent.com/VantaInc/vanta-agent-scripts/master/install-linux.sh"` | no |
 
 ## Outputs
 

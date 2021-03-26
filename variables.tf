@@ -270,14 +270,14 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition2.1.4.focal.all.deb"
+  default = "kong-enterprise-edition2.3.3.focal.all.deb"
 }
 
 variable "ce_pkg" {
   description = "Filename of the Community Edition package"
   type        = string
 
-  default = "kong-2.1.4.focal.amd64.deb"
+  default = "kong-2.3.3.focal.amd64.deb"
 }
 
 # Load Balancer settings
@@ -583,4 +583,16 @@ variable "admin_user" {
   description = "The user name for Kong admin user"
   type        = string
   default     = "kong-admin"
+}
+
+variable "vanta_key" {
+  description = "Vanta key for registering Vanta Agent on Kong instances. If key is not provided Vanta agent wont be installed"
+  type        = string
+  default     = ""
+}
+
+variable "vanta_script_url" {
+  description = "Vanta agent installation script. For more info visit - https://github.com/VantaInc/vanta-agent-scripts"
+  type        = string
+  default     = "https://raw.githubusercontent.com/VantaInc/vanta-agent-scripts/master/install-linux.sh"
 }
