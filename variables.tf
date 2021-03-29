@@ -197,7 +197,11 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1 = "ami-05c457ee3f21d75f8"
+    # Image information:
+    # ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210325 - ami-04cc2b0ad9e30a9c8
+    # Canonical, Ubuntu, 20.04 LTS, amd64 focal image build on 2021-03-25
+    # Root device type: ebs Virtualization type: hvm ENA Enabled: Yes
+    us-east-1 = "ami-04cc2b0ad9e30a9c8"
   }
 }
 
@@ -563,7 +567,7 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "1.2.1"
+  default = "1.5.1"
 }
 
 variable "db_final_snapshot_identifier" {

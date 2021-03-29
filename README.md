@@ -91,12 +91,12 @@ No requirements.
 | db\_storage\_type | Type of the database storage | `string` | `"gp2"` | no |
 | db\_subnets | Database instance subnet group name | `string` | `"db-subnets"` | no |
 | db\_username | Database master username | `string` | `"root"` | no |
-| deck\_version | Version of decK to install | `string` | `"1.2.1"` | no |
+| deck\_version | Version of decK to install | `string` | `"1.5.1"` | no |
 | default\_security\_group\_id | Id of the default VPC security group for EC2 access | `string` | `"default"` | no |
 | default\_security\_group\_name | Name of the default VPC security group for EC2 access | `string` | `"default"` | no |
 | deregistration\_delay | Seconds to wait before changing the state of a deregistering target from draining to unused | `string` | `300` | no |
 | description | Resource description tag | `string` | `"Kong API Gateway"` | no |
-| ec2\_ami | Map of Ubuntu Minimal AMIs by region | `map(string)` | <pre>{<br>  "us-east-1": "ami-05c457ee3f21d75f8"<br>}</pre> | no |
+| ec2\_ami | Map of Ubuntu Minimal AMIs by region | `map(string)` | <pre>{<br>  "us-east-1": "ami-04cc2b0ad9e30a9c8"<br>}</pre> | no |
 | ec2\_instance\_type | EC2 instance type | `string` | `"t2.micro"` | no |
 | ec2\_key\_name | AWS SSH Key | `string` | `""` | no |
 | ec2\_root\_volume\_encryption | Should encrypt ec2 root volume | `bool` | `true` | no |
