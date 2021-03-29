@@ -238,6 +238,9 @@ fi
 curl http://localhost:8001/services/kong-admin-api 2>&1 | grep -q "Not found"
 if [ $? = 0 ]; then
     echo "Configuring admin interface"
+
+    ADMIN_PASS=$(aws_get_parameter "admin/password")
+
     curl -s -X POST http://localhost:8001/services \
       -d 'name=kong-admin-api' \
       -d 'host=127.0.0.1' \

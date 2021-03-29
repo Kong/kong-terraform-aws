@@ -18,7 +18,6 @@ data "template_file" "shell-script" {
     SESSION_SECRET    = random_string.session_secret.result
     ADMIN_CERT_DOMAIN = var.ssl_cert_admin_domain
     ADMIN_USER        = var.admin_user
-    ADMIN_PASS        = random_string.admin_password.result
     VANTA_KEY         = var.vanta_key
     VANTA_SCRIPT_URL  = var.vanta_script_url
   }
