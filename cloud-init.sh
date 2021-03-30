@@ -239,7 +239,7 @@ curl http://localhost:8001/services/kong-admin-api 2>&1 | grep -q "Not found"
 if [ $? = 0 ]; then
     echo "Configuring admin interface"
 
-    ADMIN_PASS=$(aws_get_parameter "admin/password")
+    export ADMIN_PASS=$(aws_get_parameter "admin/password")
 
     curl -s -X POST http://localhost:8001/services \
       -d 'name=kong-admin-api' \
@@ -270,6 +270,8 @@ if [ $? = 0 ]; then
 
     curl -s -X POST http://localhost:8001/consumers/${ADMIN_USER}/acls \
       -d "group=kong-admins"
+
+    unset ADMIN_PASS
 fi
 
 # Enable healthchecks using a kong endpoint
