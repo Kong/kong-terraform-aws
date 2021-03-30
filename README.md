@@ -147,7 +147,6 @@ No requirements.
 
 | Name | Description |
 |------|-------------|
-| admin\_password | The admin password for Kong |
 | admin\_password\_key\_name | The SSM key name for admin password for Kong |
 | admin\_token | The admin token for Kong |
 | autoscaling\_group | The autoscaling group |
