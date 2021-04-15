@@ -154,6 +154,7 @@ No requirements.
 | lb\_endpoint\_internal | The internal load balancer endpoint |
 | master\_password | The master password for Kong |
 | rds\_endpoint | The endpoint for the Kong database |
+| rds\_id | ID of the Kong database |
 | rds\_password | The database password for Kong |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

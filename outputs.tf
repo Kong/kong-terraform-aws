@@ -1,3 +1,8 @@
+output "rds_id" {
+  value       = aws_db_instance.kong.*.id
+  description = "ID of the Kong database"
+}
+
 output "rds_endpoint" {
   value       = coalesce(aws_rds_cluster.kong.*.endpoint)
   description = "The endpoint for the Kong database"
