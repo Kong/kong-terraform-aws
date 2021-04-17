@@ -8,6 +8,7 @@ module "kong_external_lb_cw" {
   cloudwatch_actions = var.cloudwatch_actions
   http_4xx_count     = var.http_4xx_count
   http_5xx_count     = var.http_5xx_count
+  response_time_avg  = var.response_time_avg
 }
 
 module "kong_internal_lb_cw" {
@@ -20,4 +21,5 @@ module "kong_internal_lb_cw" {
   cloudwatch_actions = var.cloudwatch_actions
   http_4xx_count     = var.http_4xx_count
   http_5xx_count     = var.http_5xx_count
+  response_time_avg  = var.response_time_avg
 }

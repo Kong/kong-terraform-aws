@@ -420,6 +420,13 @@ variable "http_5xx_count" {
   default = 50
 }
 
+variable "response_time_avg" {
+  description = "Response time average threshhold in milliseconds"
+  type        = string
+
+  default = 1000
+}
+
 # Datastore settings
 variable "enable_aurora" {
   description = "Boolean to enable Aurora"

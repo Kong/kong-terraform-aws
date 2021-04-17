@@ -136,6 +136,7 @@ No requirements.
 | redis\_instance\_count | Number of redis nodes | `string` | `2` | no |
 | redis\_instance\_type | Redis node instance type | `string` | `"cache.t2.small"` | no |
 | redis\_subnets | Redis cluster subnet group name | `string` | `"cache-subnets"` | no |
+| response\_time\_avg | Response time average threshhold in milliseconds | `string` | `1000` | no |
 | service | Resource service tag | `string` | `"kong"` | no |
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |

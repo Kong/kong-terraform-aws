@@ -20,8 +20,8 @@ resource "aws_cloudwatch_metric_alarm" "unhealthy-host-count" {
   ok_actions        = var.cloudwatch_actions
 
   dimensions = {
-    "TargetGroup"  = element(split(":", var.target_group), 5)
-    "LoadBalancer" = var.load_balancer
+    TargetGroup  = element(split(":", var.target_group), 5)
+    LoadBalancer = var.load_balancer
   }
 }
 
@@ -67,6 +67,30 @@ resource "aws_cloudwatch_metric_alarm" "http-code-5xx-count" {
   ok_actions        = var.cloudwatch_actions
 
   dimensions = {
+    LoadBalancer = var.load_balancer
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "response-time-avg" {
+  count = var.enable ? 1 : 0
+
+  alarm_name          = format("%s-response-time-avg", local.load_balancer)
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 1
+  metric_name         = "TargetResponseTime"
+  namespace           = "AWS/ApplicationELB"
+  period              = 60
+  statistic           = "Average"
+  threshold           = var.response_time_avg
+  treat_missing_data  = "ignore"
+
+  actions_enabled   = "true"
+  alarm_actions     = var.cloudwatch_actions
+  alarm_description = "Average API response time is too high"
+  ok_actions        = var.cloudwatch_actions
+
+  dimensions = {
+    TargetGroup  = element(split(":", var.target_group), 5)
     LoadBalancer = var.load_balancer
   }
 }

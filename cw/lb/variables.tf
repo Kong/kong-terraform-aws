@@ -30,3 +30,8 @@ variable "http_5xx_count" {
   description = "HTTP Code 5xx count threshhold"
   type        = string
 }
+
+variable "response_time_avg" {
+  description = "Response time average threshhold in milliseconds"
+  type        = string
+}
