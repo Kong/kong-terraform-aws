@@ -1,5 +1,5 @@
 output "rds_id" {
-  value       = aws_db_instance.kong.*.id
+  value       = coalesce(aws_db_instance.kong.*.id)
   description = "ID of the Kong database"
 }
 
