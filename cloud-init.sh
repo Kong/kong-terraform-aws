@@ -109,6 +109,9 @@ trusted_ips = 0.0.0.0/0
 proxy_listen = 0.0.0.0:8000
 # For /status to load balancers
 admin_listen = 127.0.0.1:8001
+
+# Disable headers
+headers = off
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
