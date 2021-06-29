@@ -113,8 +113,8 @@ admin_listen = 127.0.0.1:8001
 # Disable headers
 headers = off
 
-# Increase request body size
-nginx_http_client_body_buffer_size = 16M
+# Increase request body size to 16 megabytes
+nginx_http_client_body_buffer_size = 16m
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
