@@ -29,25 +29,22 @@ echo "Installing Kong"
 EE_LICENSE=$(aws_get_parameter ee/license)
 EE_CREDS=$(aws_get_parameter ee/bintray-auth)
 if [ "$EE_LICENSE" != "" ] && [ "$EE_LICENSE" != "placeholder" ]; then
-    curl -sL https://kong.bintray.com/kong-enterprise-edition-deb/dists/${EE_PKG} \
-        -u $EE_CREDS \
-        -o ${EE_PKG} 
+    curl -sL "${EE_PKG}" -u $EE_CREDS -o kong.deb
 
-    if [ ! -f ${EE_PKG} ]; then
+    if [ ! -f kong.deb ]; then
         echo "Error: Enterprise edition download failed, aborting."
         exit 1
     fi
-    dpkg -i ${EE_PKG}
+    dpkg -i kong.deb
 
     cat <<EOF > /etc/kong/license.json
 $EE_LICENSE
 EOF
     chown root:kong /etc/kong/license.json
     chmod 640 /etc/kong/license.json
-else  
-    curl -sL "https://bintray.com/kong/kong-deb/download_file?file_path=${CE_PKG}" \
-        -o ${CE_PKG}
-    dpkg -i ${CE_PKG}
+else
+    curl -sL "${CE_PKG}" -o kong.deb
+    dpkg -i kong.deb
 fi
 
 # Setup database

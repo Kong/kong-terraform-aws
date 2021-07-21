@@ -271,17 +271,17 @@ variable "asg_health_check_grace_period" {
 
 # Kong packages
 variable "ee_pkg" {
-  description = "Filename of the Enterprise Edition package"
+  description = "Url for Enterprise Edition package matching the OS distro"
   type        = string
 
-  default = "kong-enterprise-edition2.3.3.focal.all.deb"
+  default = "https://download.konghq.com/gateway-2.x-ubuntu-focal/pool/all/k/kong-enterprise-edition/kong-enterprise-edition_2.3.3.0_all.deb"
 }
 
 variable "ce_pkg" {
-  description = "Filename of the Community Edition package"
+  description = "Url for Community Edition package matching the OS distro"
   type        = string
 
-  default = "kong-2.3.3.focal.amd64.deb"
+  default = "https://download.konghq.com/gateway-2.x-ubuntu-focal/pool/all/k/kong/kong_2.3.3_amd64.deb"
 }
 
 # Load Balancer settings

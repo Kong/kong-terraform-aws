@@ -51,9 +51,16 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| random | n/a |
-| template | n/a |
+| aws | 3.21.0 |
+| random | 3.0.0 |
+| template | 2.2.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| kong\_external\_lb\_cw | ./cw/lb | n/a |
+| kong\_internal\_lb\_cw | ./cw/lb | n/a |
 
 ## Inputs
 
@@ -75,7 +82,7 @@ No requirements.
 | asg\_max\_size | The maximum size of the auto scale group | `string` | `3` | no |
 | asg\_min\_size | The minimum size of the auto scale group | `string` | `1` | no |
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
-| ce\_pkg | Filename of the Community Edition package | `string` | `"kong-2.3.3.focal.amd64.deb"` | no |
+| ce\_pkg | Url for Community Edition package matching the OS distro | `string` | `"https://download.konghq.com/gateway-2.x-ubuntu-focal/pool/all/k/kong/kong_2.3.3_amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
 | db\_backup\_retention\_period | The number of days to retain backups | `string` | `7` | no |
 | db\_engine\_mode | Engine mode for Aurora | `string` | `"provisioned"` | no |
@@ -104,7 +111,7 @@ No requirements.
 | ec2\_root\_volume\_type | Type of the root volume (standard, gp2, or io) | `string` | `"gp2"` | no |
 | ee\_bintray\_auth | Bintray authentication for the Enterprise Edition download (Format: username:apikey) | `string` | `"placeholder"` | no |
 | ee\_license | Enterprise Edition license key (JSON format) | `string` | `"placeholder"` | no |
-| ee\_pkg | Filename of the Enterprise Edition package | `string` | `"kong-enterprise-edition2.3.3.focal.all.deb"` | no |
+| ee\_pkg | Url for Enterprise Edition package matching the OS distro | `string` | `"https://download.konghq.com/gateway-2.x-ubuntu-focal/pool/all/k/kong-enterprise-edition/kong-enterprise-edition_2.3.3.0_all.deb"` | no |
 | enable\_aurora | Boolean to enable Aurora | `string` | `"false"` | no |
 | enable\_deletion\_protection | Boolean to enable delete protection on the ALB | `string` | `true` | no |
 | enable\_ee | Boolean to enable Kong Enterprise Edition settings | `string` | `false` | no |
@@ -157,7 +164,6 @@ No requirements.
 | rds\_endpoint | The endpoint for the Kong database |
 | rds\_id | ID of the Kong database |
 | rds\_password | The database password for Kong |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Examples
