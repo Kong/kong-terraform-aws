@@ -14,6 +14,9 @@ resource "aws_rds_cluster" "kong" {
 
   vpc_security_group_ids = [aws_security_group.postgresql.id]
 
+  skip_final_snapshot       = var.db_final_snapshot_identifier == "" ? true : false
+  final_snapshot_identifier = var.db_final_snapshot_identifier == "" ? null : var.db_final_snapshot_identifier
+
   tags = merge(
     {
       "Name"        = format("%s-%s", var.service, var.environment),
