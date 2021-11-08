@@ -81,6 +81,8 @@ fi
 unset PGPASSWORD
 
 # Setup Configuration file
+mkdir -p /etc/kong
+
 cat <<EOF > /etc/kong/kong.conf
 # kong.conf, Kong configuration file
 # Written by Dennis Kelly <dennisk@zillowgroup.com>
@@ -139,7 +141,7 @@ EOF
     done
 else
     # CE does not create the kong directory
-    mkdir /usr/local/kong
+    mkdir -p /usr/local/kong
 fi
 
 chown root:kong /usr/local/kong
