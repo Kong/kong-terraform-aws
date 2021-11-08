@@ -82,6 +82,7 @@ resource "aws_autoscaling_group" "kong" {
 
   depends_on = [
     aws_db_instance.kong,
-    aws_rds_cluster.kong
+    aws_rds_cluster.kong,
+    aws_elasticache_replication_group.kong
   ]
 }
