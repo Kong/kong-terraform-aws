@@ -65,10 +65,34 @@ resource "aws_lb_listener" "external-https" {
   certificate_arn = var.ssl_cert_external_arn
 
   default_action {
-    target_group_arn = aws_lb_target_group.external[0].arn
-    type             = "forward"
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Forbidden"
+      status_code  = "403"
+    }
   }
 }
+
+resource "aws_lb_listener_rule" "external-routing" {
+  count = var.enable_external_lb ? 1 : 0
+
+  listener_arn = aws_lb_listener.external-https[0].arn
+  priority     = 1
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.external[0].arn
+  }
+  condition {
+    host_header {
+      values = [var.ssl_cert_admin_domain]
+    }
+  }
+}
+
+
 
 resource "aws_lb_listener" "external-http" {
   count = var.enable_external_lb ? 1 : 0
