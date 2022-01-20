@@ -20,7 +20,7 @@ locals {
 
 }
 
-data "template_cloudinit_config" "cloud-init" {
+data "cloudinit_config" "cloud-init" {
   gzip          = true
   base64_encode = true
 
