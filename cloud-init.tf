@@ -1,11 +1,7 @@
-data "template_file" "cloud-init" {
-  template = file("${path.module}/cloud-init.cfg")
-}
+locals {
+  cloud_init = templatefile("${path.module}/cloud-init.cfg", {})
 
-data "template_file" "shell-script" {
-  template = file("${path.module}/cloud-init.sh")
-
-  vars = {
+  shell_script = templatefile("${path.module}/cloud-init.sh", {
     DB_USER           = replace(format("%s_%s", var.service, var.environment), "-", "_")
     CE_PKG            = var.ce_pkg
     EE_PKG            = var.ee_pkg
@@ -20,7 +16,8 @@ data "template_file" "shell-script" {
     ADMIN_USER        = var.admin_user
     VANTA_KEY         = var.vanta_key
     VANTA_SCRIPT_URL  = var.vanta_script_url
-  }
+  })
+
 }
 
 data "template_cloudinit_config" "cloud-init" {
@@ -30,11 +27,11 @@ data "template_cloudinit_config" "cloud-init" {
   part {
     filename     = "init.cfg"
     content_type = "text/cloud-config"
-    content      = data.template_file.cloud-init.rendered
+    content      = local.cloud_init
   }
 
   part {
     content_type = "text/x-shellscript"
-    content      = data.template_file.shell-script.rendered
+    content      = local.shell_script
   }
 }
