@@ -51,9 +51,9 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| aws | 3.21.0 |
-| random | 3.0.0 |
-| template | 2.2.0 |
+| aws | 3.72.0 |
+| cloudinit | 2.2.0 |
+| random | 3.1.0 |
 
 ## Modules
 
@@ -148,8 +148,6 @@ No requirements.
 | ssl\_policy | SSL Policy for HTTPS Listeners | `string` | `"ELBSecurityPolicy-TLS-1-2-2017-01"` | no |
 | subnet\_tag | Tag used on subnets to define Tier | `string` | `"Tier"` | no |
 | tags | Tags to apply to resources | `map(string)` | `{}` | no |
-| vanta\_key | Vanta key for registering Vanta Agent on Kong instances. If key is not provided Vanta agent wont be installed | `string` | `""` | no |
-| vanta\_script\_url | Vanta agent installation script. For more info visit - https://github.com/VantaInc/vanta-agent-scripts | `string` | `"https://raw.githubusercontent.com/VantaInc/vanta-agent-scripts/master/install-linux.sh"` | no |
 
 ## Outputs
 

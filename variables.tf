@@ -595,15 +595,3 @@ variable "admin_user" {
   type        = string
   default     = "kong-admin"
 }
-
-variable "vanta_key" {
-  description = "Vanta key for registering Vanta Agent on Kong instances. If key is not provided Vanta agent wont be installed"
-  type        = string
-  default     = ""
-}
-
-variable "vanta_script_url" {
-  description = "Vanta agent installation script. For more info visit - https://github.com/VantaInc/vanta-agent-scripts"
-  type        = string
-  default     = "https://raw.githubusercontent.com/VantaInc/vanta-agent-scripts/master/install-linux.sh"
-}

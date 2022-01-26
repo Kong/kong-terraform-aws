@@ -331,8 +331,3 @@ EOF
     sv start /etc/sv/kong
 
 fi
-
-# Configure Vanta Agent on the instance
-if [ "${VANTA_KEY}" != "" ]; then
-    VANTA_KEY="${VANTA_KEY}" bash -c "$(curl -L ${VANTA_SCRIPT_URL})"
-fi
