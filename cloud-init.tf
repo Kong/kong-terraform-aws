@@ -14,8 +14,6 @@ locals {
     SESSION_SECRET    = random_string.session_secret.result
     ADMIN_CERT_DOMAIN = var.ssl_cert_admin_domain
     ADMIN_USER        = var.admin_user
-    VANTA_KEY         = var.vanta_key
-    VANTA_SCRIPT_URL  = var.vanta_script_url
   })
 
 }
