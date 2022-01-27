@@ -38,6 +38,11 @@ resource "aws_iam_role" "kong" {
   assume_role_policy = data.aws_iam_policy_document.kong.json
 }
 
+resource "aws_iam_role_policy_attachment" "kong_ssm_managed_instance_policy_attach" {
+  role       = aws_iam_role.kong.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_instance_profile" "kong" {
   name = format("%s-%s", var.service, var.environment)
   role = aws_iam_role.kong.id

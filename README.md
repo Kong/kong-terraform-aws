@@ -51,7 +51,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| aws | 3.72.0 |
+| aws | 3.73.0 |
 | cloudinit | 2.2.0 |
 | random | 3.1.0 |
 
