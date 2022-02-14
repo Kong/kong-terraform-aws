@@ -172,6 +172,13 @@ events {
 }
 
 http {
+    # extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
+    # see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
+    log_format combined_with_perf_data '$remote_addr - $remote_user [$time_local] '
+                                       '"$request" $status $body_bytes_sent '
+                                       '"$http_referer" "$http_user_agent" '
+                                       'rt="$request_time" uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
+    access_log    /dev/stdout combined_with_perf_data;
     include nginx-kong.conf;
 }
 EOF
