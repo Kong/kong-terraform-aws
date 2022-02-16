@@ -599,9 +599,13 @@ variable "admin_user" {
 variable "lb_logging_bucket" {
   description = "The s3 bucket which LB access logs should be stored to"
   type        = string
+
+  default = ""
 }
 
 variable "external_lb_logging_prefix" {
   description = "s3 prefix for the external LB access logs"
   type        = string
+
+  default = ""
 }

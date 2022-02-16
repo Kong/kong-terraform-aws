@@ -69,8 +69,6 @@ No requirements.
 | aws\_private\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | aws\_public\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | environment | Resource environment tag (i.e. dev, stage, prod) | `string` | n/a | yes |
-| external\_lb\_logging\_prefix | s3 prefix for the external LB access logs | `string` | n/a | yes |
-| lb\_logging\_bucket | The s3 bucket which LB access logs should be stored to | `string` | n/a | yes |
 | ssl\_cert\_admin\_domain | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
@@ -121,6 +119,7 @@ No requirements.
 | enable\_internal\_lb | Boolean to enable/create the internal load balancer for the forward proxy | `string` | `true` | no |
 | enable\_redis | Boolean to enable redis AWS resource | `string` | `false` | no |
 | external\_cidr\_blocks | External ingress access to Kong Proxy via the load balancer | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| external\_lb\_logging\_prefix | s3 prefix for the external LB access logs | `string` | `""` | no |
 | health\_check\_healthy\_threshold | Number of consecutives checks before a unhealthy target is considered healthy | `string` | `5` | no |
 | health\_check\_interval | Seconds between health checks | `string` | `5` | no |
 | health\_check\_matcher | HTTP Code(s) that result in a successful response from a target (comma delimited) | `string` | `200` | no |
@@ -133,6 +132,7 @@ No requirements.
 | internal\_https\_cidr\_blocks | Internal ingress access to Kong Proxy via the load balancer (HTTPS) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | lb\_creation\_timeout | Timeout for creating load balancers | `string` | `"20m"` | no |
 | lb\_deletion\_timeout | Timeout for deleting load balancers | `string` | `"20m"` | no |
+| lb\_logging\_bucket | The s3 bucket which LB access logs should be stored to | `string` | `""` | no |
 | manager\_cidr\_blocks | Access to Kong Manager (Enterprise Edition only) | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | manager\_host | Hostname to access Kong Manager (Enterprise Edition only) | `string` | `"default"` | no |
 | module\_dependencies | Variable to force the module to wait for other resources to finish creation | `any` | `null` | no |
