@@ -69,6 +69,8 @@ No requirements.
 | aws\_private\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | aws\_public\_subnet\_ids | Private subnet Ids | `list(string)` | n/a | yes |
 | environment | Resource environment tag (i.e. dev, stage, prod) | `string` | n/a | yes |
+| external\_lb\_logging\_prefix | s3 prefix for the external LB access logs | `string` | n/a | yes |
+| lb\_logging\_bucket | The s3 bucket which LB access logs should be stored to | `string` | n/a | yes |
 | ssl\_cert\_admin\_domain | SSL certificate domain name for the Kong Admin API HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_external\_arn | SSL certificate ARN for the external Kong Proxy HTTPS listener | `string` | n/a | yes |
 | ssl\_cert\_internal\_arn | SSL certificate ARN for the internal Kong Proxy HTTPS listener | `string` | n/a | yes |
