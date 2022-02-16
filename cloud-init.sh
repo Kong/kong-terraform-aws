@@ -112,6 +112,12 @@ headers = off
 
 # Increase request body size to 16 megabytes
 nginx_http_client_body_buffer_size = 16m
+
+# extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
+# see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
+nginx_http_log_format=combined_with_perf_data '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" rt="$request_time" uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"'
+nginx_proxy_access_log=logs/access_timing.log combined_with_perf_data
+
 EOF
 chmod 640 /etc/kong/kong.conf
 chgrp kong /etc/kong/kong.conf
@@ -173,14 +179,6 @@ events {
 
 http {
     include nginx-kong.conf;
-    # extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
-    # see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
-    log_format combined_with_perf_data '$remote_addr - $remote_user [$time_local] '
-                                       '"$request" $status $body_bytes_sent '
-                                       '"$http_referer" "$http_user_agent" '
-                                       'rt="$request_time" uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"';
-    access_log logs/access.log combined_with_perf_data;
-
 }
 EOF
 chown root:kong /usr/local/kong/nginx.conf
