@@ -115,7 +115,7 @@ nginx_http_client_body_buffer_size = 16m
 
 # extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
 # see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
-nginx_http_log_format=combined_with_perf_data '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" rt="$request_time" uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"'
+nginx_http_log_format=combined_with_perf_data '\$remote_addr - \$remote_user [\$time_local] "\$request" \$status \$body_bytes_sent "\$http_referer" "\$http_user_agent" rt="\$request_time" uct="\$upstream_connect_time" uht="\$upstream_header_time" urt="\$upstream_response_time"'
 nginx_proxy_access_log=logs/access_timing.log combined_with_perf_data
 
 EOF
