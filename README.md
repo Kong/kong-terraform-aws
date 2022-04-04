@@ -129,8 +129,8 @@ Prerequisites:
 <td>no</td>
 </tr>
 <tr>
-<td>ce_pkg</td>
-<td>Filename of the Community Edition package</td>
+<td>download_url</td>
+<td>Download URL of the Community Edition package</td>
 <td>
 
 `string`</td>

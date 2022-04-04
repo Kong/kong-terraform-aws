@@ -7,7 +7,7 @@ data "template_file" "shell-script" {
 
   vars = {
     DB_USER        = replace(format("%s_%s", var.service, var.environment), "-", "_")
-    CE_PKG         = var.ce_pkg
+    DOWNLOAD_URL   = var.download_url
     EE_PKG         = var.ee_pkg
     PARAMETER_PATH = format("/%s/%s", var.service, var.environment)
     REGION         = data.aws_region.current.name

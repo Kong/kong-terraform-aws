@@ -45,9 +45,9 @@ EOF
     chown root:kong /etc/kong/license.json
     chmod 640 /etc/kong/license.json
 else  
-    curl -sL "https://bintray.com/kong/kong-deb/download_file?file_path=${CE_PKG}" \
-        -o ${CE_PKG}
-    dpkg -i ${CE_PKG}
+    curl -sL ${DOWNLOAD_URL} \
+        -o kong.deb
+    dpkg -i kong.deb
 fi
 
 # Setup database

@@ -242,11 +242,9 @@ variable "ee_pkg" {
   default = "kong-enterprise-edition-1.3.0.1.bionic.all.deb "
 }
 
-variable "ce_pkg" {
-  description = "Filename of the Community Edition package"
+variable "download_url" {
+  description = "Download URL of the Community Edition package"
   type        = string
-
-  default = "kong-1.5.0.bionic.amd64.deb"
 }
 
 # Load Balancer settings
