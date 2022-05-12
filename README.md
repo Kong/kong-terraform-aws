@@ -103,6 +103,7 @@ No requirements.
 | default\_security\_group\_name | Name of the default VPC security group for EC2 access | `string` | `"default"` | no |
 | deregistration\_delay | Seconds to wait before changing the state of a deregistering target from draining to unused | `string` | `300` | no |
 | description | Resource description tag | `string` | `"Kong API Gateway"` | no |
+| drop\_invalid\_header\_fields | Drop invalid headers in LB | `bool` | `false` | no |
 | ec2\_ami | Map of Ubuntu Minimal AMIs by region | `map(string)` | <pre>{<br>  "us-east-1": "ami-04cc2b0ad9e30a9c8"<br>}</pre> | no |
 | ec2\_instance\_type | EC2 instance type | `string` | `"t2.micro"` | no |
 | ec2\_key\_name | AWS SSH Key | `string` | `""` | no |

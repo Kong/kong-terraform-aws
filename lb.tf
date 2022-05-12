@@ -38,6 +38,7 @@ resource "aws_lb" "external" {
 
   enable_deletion_protection = var.enable_deletion_protection
   idle_timeout               = var.idle_timeout
+  drop_invalid_header_fields = var.drop_invalid_header_fields
 
   tags = merge(
     {
@@ -272,6 +273,7 @@ resource "aws_lb" "internal" {
 
   enable_deletion_protection = var.enable_deletion_protection
   idle_timeout               = var.idle_timeout
+  drop_invalid_header_fields = var.drop_invalid_header_fields
 
   tags = merge(
     {

@@ -609,3 +609,10 @@ variable "external_lb_logging_prefix" {
 
   default = ""
 }
+
+variable "drop_invalid_header_fields" {
+  description = "Drop invalid headers in LB"
+  type        = bool
+
+  default = false
+}
