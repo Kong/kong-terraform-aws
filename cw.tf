@@ -1,7 +1,7 @@
 module "kong_external_lb_cw" {
   source = "./cw/lb"
 
-  enable        = var.enable_external_lb
+  enable        = var.enable_external_lb_alarms
   load_balancer = coalesce(join("", aws_lb.external.*.arn_suffix), "none")
   target_group  = coalesce(join("", aws_lb_target_group.external.*.arn), "none")
 
@@ -14,7 +14,7 @@ module "kong_external_lb_cw" {
 module "kong_internal_lb_cw" {
   source = "./cw/lb"
 
-  enable        = var.enable_external_lb
+  enable        = var.enable_internal_lb_alarms
   load_balancer = coalesce(join("", aws_lb.internal.*.arn_suffix), "none")
   target_group  = coalesce(join("", aws_lb_target_group.internal.*.arn), "none")
 
