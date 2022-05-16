@@ -117,7 +117,9 @@ No requirements.
 | enable\_deletion\_protection | Boolean to enable delete protection on the ALB | `string` | `true` | no |
 | enable\_ee | Boolean to enable Kong Enterprise Edition settings | `string` | `false` | no |
 | enable\_external\_lb | Boolean to enable/create the external load balancer, exposing Kong to the Internet | `string` | `true` | no |
+| enable\_external\_lb\_alarms | Boolean to enable/create the external load balancer alerts | `string` | `true` | no |
 | enable\_internal\_lb | Boolean to enable/create the internal load balancer for the forward proxy | `string` | `true` | no |
+| enable\_internal\_lb\_alarms | Boolean to enable/create the internal load balancer alarms | `string` | `true` | no |
 | enable\_redis | Boolean to enable redis AWS resource | `string` | `false` | no |
 | external\_cidr\_blocks | External ingress access to Kong Proxy via the load balancer | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | external\_lb\_logging\_prefix | s3 prefix for the external LB access logs | `string` | `""` | no |

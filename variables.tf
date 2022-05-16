@@ -299,6 +299,21 @@ variable "enable_internal_lb" {
   default = true
 }
 
+# Load Balancer settings
+variable "enable_external_lb_alarms" {
+  description = "Boolean to enable/create the external load balancer alerts"
+  type        = string
+
+  default = true
+}
+
+variable "enable_internal_lb_alarms" {
+  description = "Boolean to enable/create the internal load balancer alarms"
+  type        = string
+
+  default = true
+}
+
 variable "lb_creation_timeout" {
   description = "Timeout for creating load balancers"
   type        = string
