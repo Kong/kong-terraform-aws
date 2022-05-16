@@ -299,9 +299,8 @@ variable "enable_internal_lb" {
   default = true
 }
 
-# Load Balancer settings
 variable "enable_external_lb_alarms" {
-  description = "Boolean to enable/create the external load balancer alerts"
+  description = "Boolean to enable/create the external load balancer alarms"
   type        = string
 
   default = true
