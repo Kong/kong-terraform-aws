@@ -164,6 +164,7 @@ No requirements.
 | lb\_endpoint\_external | The external load balancer endpoint |
 | lb\_endpoint\_internal | The internal load balancer endpoint |
 | master\_password | The master password for Kong |
+| rds\_arn | ARN of the Kong database |
 | rds\_endpoint | The endpoint for the Kong database |
 | rds\_id | ID of the Kong database |
 | rds\_password | The database password for Kong |
