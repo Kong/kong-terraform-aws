@@ -3,6 +3,11 @@ output "rds_id" {
   description = "ID of the Kong database"
 }
 
+output "rds_arn" {
+  value       = coalesce(aws_db_instance.kong.*.arn)
+  description = "ARN of the Kong database"
+}
+
 output "rds_endpoint" {
   value       = coalesce(aws_rds_cluster.kong.*.endpoint)
   description = "The endpoint for the Kong database"
