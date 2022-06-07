@@ -102,7 +102,7 @@ pg_database = $DB_NAME
 real_ip_header = X-Forwarded-For
 trusted_ips = 0.0.0.0/0
 
-# SSL terminiation is performed by load balancers
+# SSL termination is performed by load balancers
 proxy_listen = 0.0.0.0:8000
 # For /status to load balancers
 admin_listen = 127.0.0.1:8001
@@ -112,6 +112,12 @@ headers = off
 
 # Increase request body size to 16 megabytes
 nginx_http_client_body_buffer_size = 16m
+
+# Avoid checking client body size
+nginx_http_client_max_body_size = 0
+
+# Disable proxy buffering and stream directly to the client
+nginx_proxy_proxy_request_buffering = off
 
 # extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
 # see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
