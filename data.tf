@@ -9,7 +9,7 @@ data "aws_vpc" "vpc" {
 
 data "aws_region" "current" {}
 
-data "aws_subnet_ids" "public" {
+data "aws_subnets" "public" {
   vpc_id = data.aws_vpc.vpc.id
 
   filter {
@@ -18,7 +18,7 @@ data "aws_subnet_ids" "public" {
   }
 }
 
-data "aws_subnet_ids" "private" {
+data "aws_subnets" "private" {
   vpc_id = data.aws_vpc.vpc.id
 
   filter {
