@@ -32,7 +32,7 @@ resource "aws_lb" "external" {
 
   name     = format("%s-%s-external", var.service, var.environment)
   internal = false
-  subnets  = data.aws_subnet_ids.public.ids
+  subnets  = data.aws_subnets.public.ids
 
   security_groups = [aws_security_group.external-lb.id]
 
@@ -212,7 +212,7 @@ resource "aws_lb" "internal" {
 
   name     = format("%s-%s-internal", var.service, var.environment)
   internal = true
-  subnets  = data.aws_subnet_ids.private.ids
+  subnets  = data.aws_subnets.private.ids
 
   security_groups = [aws_security_group.internal-lb.id]
 
