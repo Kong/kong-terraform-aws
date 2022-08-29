@@ -123,7 +123,7 @@ portal_gui_listen = 0.0.0.0:8003
 portal_api_listen = 0.0.0.0:8004
 
 admin_api_uri = https://${MANAGER_HOST}:8444
-admin_gui_url = https://${MANAGER_HOST}:8445
+admin_gui_url = https://${MANAGER_URL}
 
 portal              = on
 portal_gui_protocol = https
@@ -283,7 +283,7 @@ if [ "$EE_LICENSE" != "placeholder" ]; then
     cat <<EOF >> /etc/kong/kong.conf
 enforce_rbac = on
 admin_gui_auth = basic-auth
-admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":false }
+admin_gui_session_conf = { "secret":"${SESSION_SECRET}", "cookie_secure":true, "cookie_samesite":"None" }
 EOF
 
     sv start /etc/sv/kong     

@@ -42,6 +42,15 @@ variable "bastion_cidr_blocks" {
   ]
 }
 
+variable "bastion_ssh" {
+  description = "Bastion hosts allowed ssh access to PostgreSQL and Kong Instance"
+  type        = list(string)
+
+  default = [
+    "127.0.0.1/32",
+  ]
+}
+
 variable "external_cidr_blocks" {
   description = "External ingress access to Kong Proxy via the load balancer"
   type        = list(string)
@@ -160,6 +169,11 @@ variable "ee_license" {
   default = "placeholder"
 }
 
+variable "manager_url_add" {
+  description = "URL used in either Route53 or Cloudflare as the Kong Manager origin"
+  type        = string
+}
+
 # EC2 settings
 
 # https://wiki.ubuntu.com/Minimal
@@ -168,7 +182,7 @@ variable "ec2_ami" {
   type        = map(string)
 
   default = {
-    us-east-1    = "ami-097f2dec72be3d174"
+    us-east-1    = "ami-02f3a0de471163b30"
     us-east-2    = "ami-0ba142a7063a73767"
     us-west-1    = "ami-07b69f5dcdbb4abaf"
     us-west-2    = "ami-028b81a9f357b2b96"
@@ -239,7 +253,7 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition-1.3.0.1.bionic.all.deb "
+  default = "kong-enterprise-edition-2.2.1.0.bionic.all.deb"
 }
 
 variable "ce_pkg" {
@@ -258,6 +272,13 @@ variable "enable_external_lb" {
 }
 
 variable "enable_internal_lb" {
+  description = "Boolean to enable/create the internal load balancer for the forward proxy"
+  type        = string
+
+  default = true
+}
+
+variable "enable_kong_manager_lb" {
   description = "Boolean to enable/create the internal load balancer for the forward proxy"
   type        = string
 
@@ -393,7 +414,7 @@ variable "db_engine_version" {
   description = "Database engine version"
   type        = string
 
-  default = "11.4"
+  default = "11.10"
 }
 
 variable "db_engine_mode" {
@@ -514,7 +535,7 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "1.0.0"
+  default = "1.5.1"
 }
 
 variable "db_final_snapshot_identifier" {
