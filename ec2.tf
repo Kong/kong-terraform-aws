@@ -13,7 +13,7 @@ resource "aws_launch_configuration" "kong" {
   associate_public_ip_address = false
   enable_monitoring           = true
   placement_tenancy           = "default"
-  user_data                   = data.template_cloudinit_config.cloud-init.rendered
+  user_data                   = data.cloudinit_config.cloud-init.rendered
 
   root_block_device {
     volume_size = var.ec2_root_volume_size
