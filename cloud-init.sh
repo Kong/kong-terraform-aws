@@ -194,9 +194,9 @@ cat <<'EOF' > /etc/logrotate.d/kong
 EOF
 
 # Additional environment variables
-cat <<EOF >> /etc/environment
-DECK_REDIS_HOST=$(aws_get_parameter redis/primary-endpoint)
-EOF
+# cat <<EOF >> /etc/environment
+# DECK_REDIS_HOST=$(aws_get_parameter redis/primary-endpoint)
+# EOF
 
 # Start Kong under supervision
 echo "Starting Kong under supervision"
