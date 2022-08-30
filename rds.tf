@@ -12,7 +12,7 @@ resource "aws_db_instance" "kong" {
   backup_retention_period = var.db_backup_retention_period
   db_subnet_group_name    = var.db_subnets
   multi_az                = var.db_multi_az
-  parameter_group_name    = format("%s-%s", var.service, var.environment)
+  parameter_group_name    = var.db_instance_count > 0 ? aws_db_parameter_group.kong[0].name : format("%s-%s", var.service, var.environment)
 
 
   username = "root"
@@ -32,7 +32,6 @@ resource "aws_db_instance" "kong" {
     },
     var.tags
   )
-  depends_on = [aws_db_parameter_group.kong]
 }
 
 resource "aws_db_parameter_group" "kong" {

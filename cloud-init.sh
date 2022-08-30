@@ -29,7 +29,7 @@ echo "Installing Kong"
 EE_LICENSE=$(aws_get_parameter ee/license)
 EE_CREDS=$(aws_get_parameter ee/bintray-auth)
 if [ "$EE_LICENSE" != "placeholder" ]; then
-    curl -sL https://kong.bintray.com/kong-enterprise-edition-deb/dists/${EE_PKG} \
+    curl -sL "https://download.konghq.com/gateway-2.x-ubuntu-bionic/pool/all/k/kong-enterprise-edition/${EE_PKG}" \
         -u $EE_CREDS \
         -o ${EE_PKG} 
 
@@ -45,7 +45,7 @@ EOF
     chown root:kong /etc/kong/license.json
     chmod 640 /etc/kong/license.json
 else  
-    curl -sL "https://bintray.com/kong/kong-deb/download_file?file_path=${CE_PKG}" \
+    curl -sL "https://download.konghq.com/gateway-2.x-ubuntu-bionic/pool/all/k/kong/${CE_PKG}" \
         -o ${CE_PKG}
     dpkg -i ${CE_PKG}
 fi
@@ -81,6 +81,8 @@ fi
 unset PGPASSWORD
 
 # Setup Configuration file
+mkdir -p /etc/kong
+
 cat <<EOF > /etc/kong/kong.conf
 # kong.conf, Kong configuration file
 # Written by Dennis Kelly <dennisk@zillowgroup.com>
@@ -139,7 +141,7 @@ EOF
     done
 else
     # CE does not create the kong directory
-    mkdir /usr/local/kong
+    mkdir -p /usr/local/kong
 fi
 
 chown root:kong /usr/local/kong
@@ -190,6 +192,11 @@ cat <<'EOF' > /etc/logrotate.d/kong
   endscript
 }
 EOF
+
+# Additional environment variables
+# cat <<EOF >> /etc/environment
+# DECK_REDIS_HOST=$(aws_get_parameter redis/primary-endpoint)
+# EOF
 
 # Start Kong under supervision
 echo "Starting Kong under supervision"

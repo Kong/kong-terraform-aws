@@ -871,7 +871,7 @@ n/a</td>
 </tr>
 <tr>
 <td>db_final_snapshot_identifier</td>
-<td>If specified a final snapshot will be made of the RDS instance. If left blank, the finalsnapshot will be skipped</td>
+<td>If specified a final snapshot will be made of the RDS/Aurora instance. If left blank, the finalsnapshot will be skipped</td>
 <td>
 
 `string`</td>

@@ -239,14 +239,14 @@ variable "ee_pkg" {
   description = "Filename of the Enterprise Edition package"
   type        = string
 
-  default = "kong-enterprise-edition-1.3.0.1.bionic.all.deb "
+  default = "kong-enterprise-edition_2.6.0.0_all.deb"
 }
 
 variable "ce_pkg" {
   description = "Filename of the Community Edition package"
   type        = string
 
-  default = "kong-1.5.0.bionic.amd64.deb"
+  default = "kong_2.6.0_amd64.deb"
 }
 
 # Load Balancer settings
@@ -514,11 +514,11 @@ variable "deck_version" {
   description = "Version of decK to install"
   type        = string
 
-  default = "1.0.0"
+  default = "1.8.2"
 }
 
 variable "db_final_snapshot_identifier" {
-  description = "The final snapshot name of the RDS instance when it gets destroyed"
+  description = "The final snapshot name of the RDS/Aurora instance when it gets destroyed"
   type        = string
   default     = ""
 }
