@@ -5,10 +5,10 @@ resource "aws_launch_configuration" "kong" {
   iam_instance_profile = aws_iam_instance_profile.kong.name
   key_name             = var.ec2_key_name
 
-  security_groups = [
-    data.aws_security_group.default.id,
-    aws_security_group.kong.id,
-  ]
+  security_groups = setunion(
+    [aws_security_group.kong.id],
+    var.additional_security_groups,
+  )
 
   associate_public_ip_address = false
   enable_monitoring           = true

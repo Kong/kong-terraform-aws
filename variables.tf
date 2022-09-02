@@ -1,6 +1,6 @@
 # Network settings
-variable "vpc" {
-  description = "VPC Name for the AWS account and region specified"
+variable "vpc_id" {
+  description = "VPC ID for the AWS account and region specified"
   type        = string
 }
 
@@ -25,11 +25,11 @@ variable "public_subnets" {
   default = "public"
 }
 
-variable "default_security_group" {
-  description = "Name of the default VPC security group for EC2 access"
-  type        = string
+variable "additional_security_groups" {
+  description = "IDs of the additional security groups attached to Kong EC2 instance"
+  type        = list(string)
 
-  default = "default"
+  default = []
 }
 
 # Access control
@@ -330,26 +330,31 @@ variable "idle_timeout" {
 variable "ssl_cert_external" {
   description = "SSL certificate domain name for the external Kong Proxy HTTPS listener"
   type        = string
+  default     = null
 }
 
 variable "ssl_cert_internal" {
   description = "SSL certificate domain name for the internal Kong Proxy HTTPS listener"
   type        = string
+  default     = null
 }
 
 variable "ssl_cert_admin" {
   description = "SSL certificate domain name for the Kong Admin API HTTPS listener"
   type        = string
+  default     = null
 }
 
 variable "ssl_cert_manager" {
   description = "SSL certificate domain name for the Kong Manager HTTPS listener"
   type        = string
+  default     = null
 }
 
 variable "ssl_cert_portal" {
   description = "SSL certificate domain name for the Dev Portal listener"
   type        = string
+  default     = null
 }
 
 variable "ssl_policy" {

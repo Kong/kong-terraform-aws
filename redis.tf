@@ -2,12 +2,12 @@ resource "aws_elasticache_replication_group" "kong" {
   count = var.enable_redis ? 1 : 0
 
   replication_group_id          = format("%s-%s", var.service, var.environment)
-  replication_group_description = var.description
+  description = var.description
 
   engine                = "redis"
   engine_version        = var.redis_engine_version
   node_type             = var.redis_instance_type
-  number_cache_clusters = var.redis_instance_count
+  num_cache_clusters = var.redis_instance_count
   parameter_group_name  = format("%s-%s", var.service, var.environment)
   port                  = 6379
 
