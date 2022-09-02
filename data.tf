@@ -2,15 +2,19 @@
 data "aws_vpc" "vpc" {
   state = "available"
 
-  tags = {
-    "Name" = var.vpc
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
   }
 }
 
 data "aws_region" "current" {}
 
 data "aws_subnets" "public" {
-  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
 
   filter {
     name   = "tag:${var.subnet_tag}"
@@ -19,7 +23,10 @@ data "aws_subnets" "public" {
 }
 
 data "aws_subnets" "private" {
-  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
 
   filter {
     name   = "tag:${var.subnet_tag}"
@@ -27,30 +34,27 @@ data "aws_subnets" "private" {
   }
 }
 
-data "aws_security_group" "default" {
-  vpc_id = data.aws_vpc.vpc.id
-
-  tags = {
-    "Name" = var.default_security_group
-  }
-}
-
 data "aws_acm_certificate" "external-cert" {
+  count  = var.enable_external_lb ? 1 : 0
   domain = var.ssl_cert_external
 }
 
 data "aws_acm_certificate" "internal-cert" {
+  count  = var.enable_external_lb ? 1 : 0
   domain = var.ssl_cert_internal
 }
 
 data "aws_acm_certificate" "admin-cert" {
+  count  = var.enable_external_lb ? 1 : 0
   domain = var.ssl_cert_admin
 }
 
 data "aws_acm_certificate" "manager-cert" {
+  count  = var.enable_external_lb ? 1 : 0
   domain = var.ssl_cert_manager
 }
 
 data "aws_acm_certificate" "portal-cert" {
+  count  = var.enable_external_lb ? 1 : 0
   domain = var.ssl_cert_portal
 }
