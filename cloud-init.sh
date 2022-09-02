@@ -17,7 +17,7 @@ dpkg-reconfigure -f noninteractive unattended-upgrades
 
 # Installing decK
 # https://github.com/hbagdi/deck
-curl -sL https://github.com/hbagdi/deck/releases/download/v${DECK_VERSION}/deck_${DECK_VERSION}_linux_amd64.tar.gz \
+curl -sL https://github.com/Kong/deck/releases/download/v${DECK_VERSION}/deck_${DECK_VERSION}_linux_amd64.tar.gz \
     -o deck.tar.gz
 tar zxf deck.tar.gz deck
 sudo mv deck /usr/local/bin
