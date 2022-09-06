@@ -379,17 +379,6 @@ Prerequisites:
 <td>no</td>
 </tr>
 <tr>
-<td>ee_bintray_auth</td>
-<td>Bintray authentication for the Enterprise Edition download (Format: username:apikey)</td>
-<td>
-
-`string`</td>
-<td>
-
-`"placeholder"`</td>
-<td>no</td>
-</tr>
-<tr>
 <td>ee_license</td>
 <td>Enterprise Edition license key (JSON format)</td>
 <td>
@@ -938,11 +927,6 @@ to the AWS console and navigate to:
 Update the license key by editing the parameter (default value is "placeholder"):
  
     /[service]/[environment]/ee/license
-
-Update the Bintray authentication paramater (default value is "placeholder",
-format is "username:apikey")" for downloads:
-
-    /[service]/[environment]/ee/bintray-auth
 
 Alternatively, if your terraform files and state are secure, you can pass them 
 as variables to the module for a completely hands-off installation.
