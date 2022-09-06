@@ -146,13 +146,6 @@ variable "enable_ee" {
   default = false
 }
 
-variable "ee_bintray_auth" {
-  description = "Bintray authentication for the Enterprise Edition download (Format: username:apikey)"
-  type        = string
-
-  default = "placeholder"
-}
-
 variable "ee_license" {
   description = "Enterprise Edition license key (JSON format)"
   type        = string
@@ -398,7 +391,7 @@ variable "db_engine_version" {
   description = "Database engine version"
   type        = string
 
-  default = "11.4"
+  default = "11.14"
 }
 
 variable "db_engine_mode" {
