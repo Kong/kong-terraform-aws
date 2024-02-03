@@ -3,6 +3,7 @@ on:
   - pull_request
 jobs:
   terraform:
+    timeout-minutes: ${{ fromJSON(vars.GHA_DEFAULT_TIMEOUT) }}
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
